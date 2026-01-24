@@ -203,7 +203,7 @@
     color: #fff;
 }
 
-.psw-grid-style-1 .psw-product-card:hover .psw-product-cart-btn a. {
+.psw-grid-style-1 .psw-product-card:hover .psw-product-cart-btn a {
     color: #fff;
 }
 
@@ -215,10 +215,7 @@
 }
 
 .psw-grid-style-1 a.added_to_cart.wc-forward {
-    width: auto !important;
-    padding: 0 !important;
-    font-size: 15px;
-    background: none !important;
+    display: none !important;
 }
 
 /* List Layout - Modern Card */

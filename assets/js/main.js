@@ -31,3 +31,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+jQuery(document.body).on('added_to_cart', function (event, fragments, cart_hash, $button) {
+    var $container = $button.closest('.psw-product-cart-btn');
+    if ($container.length) {
+        // Change icon
+        $button.find('.dashicons').removeClass('dashicons-cart').addClass('dashicons-arrow-right-alt');
+
+        // Get View Cart URL
+        var $viewCartLink = $container.find('.added_to_cart.wc-forward');
+        var cartUrl = $viewCartLink.attr('href');
+
+        if (cartUrl) {
+            $button.attr('href', cartUrl);
+            $button.removeClass('ajax_add_to_cart');
+        }
+    }
+});
