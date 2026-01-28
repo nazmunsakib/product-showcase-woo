@@ -4,6 +4,8 @@
  *
  * @var \WP_Query $query
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 <div class="hexagrid-layout-slider swiper">
     <div class="swiper-wrapper">

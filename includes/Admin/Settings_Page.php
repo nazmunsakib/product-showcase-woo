@@ -27,7 +27,7 @@ class Settings_Page {
         if ( ! $screen ) return;
 
         // Check if we are on our settings page or custom post type
-        if ( strpos( $screen->id, 'product_show_preset' ) !== false || strpos( $screen->id, 'hexagrid-product-showcase-settings' ) !== false ) {
+        if ( strpos( $screen->id, 'hexagrid_show_preset' ) !== false || strpos( $screen->id, 'hexagrid-product-showcase-settings' ) !== false ) {
             remove_all_actions( 'admin_notices' );
             remove_all_actions( 'all_admin_notices' );
         }
@@ -39,7 +39,7 @@ class Settings_Page {
     public function register_menu() {
         // Add submenu under the Custom Post Type
         add_submenu_page(
-            'edit.php?post_type=product_show_preset',
+            'edit.php?post_type=hexagrid_show_preset',
             __( 'Settings & Docs', 'hexa-grid-product-showcase' ),
             __( 'Settings', 'hexa-grid-product-showcase' ),
             'manage_options',

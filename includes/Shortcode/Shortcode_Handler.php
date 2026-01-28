@@ -36,16 +36,16 @@ class Shortcode_Handler {
             
             // Map meta keys to shortcode attributes
             $meta_map = [
-                'layout'      => '_psw_layout_type',
-                'style'       => '_psw_layout_style',
-                'limit'       => '_psw_query_limit',
-                'columns'     => '_psw_columns',
-                'category'    => '_psw_categories', // This is an array
-                'ids'         => '_psw_include_ids',
-                'exclude_ids' => '_psw_exclude_ids',
-                'orderby'     => '_psw_orderby',
-                'order'       => '_psw_order',
-                'theme_color' => '_psw_theme_color',
+                'layout'      => '_hexagrid_layout_type',
+                'style'       => '_hexagrid_layout_style',
+                'limit'       => '_hexagrid_query_limit',
+                'columns'     => '_hexagrid_columns',
+                'category'    => '_hexagrid_categories', // This is an array
+                'ids'         => '_hexagrid_include_ids',
+                'exclude_ids' => '_hexagrid_exclude_ids',
+                'orderby'     => '_hexagrid_orderby',
+                'order'       => '_hexagrid_order',
+                'theme_color' => '_hexagrid_theme_color',
             ];
 
             foreach ( $meta_map as $att_key => $meta_key ) {

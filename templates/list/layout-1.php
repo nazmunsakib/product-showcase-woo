@@ -4,6 +4,8 @@
  *
  * @var \WP_Query $query
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 <div class="hexagrid-layout-list">
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
@@ -53,7 +55,12 @@
                             $review_count = $product->get_review_count();
                             if ( $review_count > 0 ) : ?>
                                 <span class="hexagrid-rating-separator">&bull;</span>
-                                <span class="hexagrid-review-count"><?php printf( esc_html__( '%d reviews', 'hexa-grid-product-showcase' ), $review_count ); ?></span>
+                                <span class="hexagrid-review-count">
+                                    <?php
+                                    // translators: %d: Number of reviews.
+                                    echo esc_html( sprintf( __( '%d reviews', 'hexa-grid-product-showcase' ), $review_count ) );
+                                    ?>
+                                </span>
                             <?php endif;
                         endif;
                         ?>

@@ -29,7 +29,7 @@ class List_Layout implements Layout_Interface {
         }
         
         ob_start();
-        echo \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
+        echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
         echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-list-' . esc_attr( $style ) . '">';
         include $template_path;
         echo '</div>';

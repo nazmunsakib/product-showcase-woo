@@ -5,6 +5,8 @@
  * @var \WP_Query $query
  * @var int $columns
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 <div class="hexagrid-layout-grid hexagrid-columns-<?php echo esc_attr( $columns ); ?>">
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>

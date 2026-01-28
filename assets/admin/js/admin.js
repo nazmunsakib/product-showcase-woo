@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Range Slider Output
-    $('#psw_columns').on('input', function () {
-        $('#psw_columns_output').text($(this).val());
+    $('#hexagrid_columns').on('input', function () {
+        $('#hexagrid_columns_output').text($(this).val());
     });
 });
