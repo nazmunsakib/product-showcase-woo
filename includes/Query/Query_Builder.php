@@ -72,6 +72,34 @@ class Query_Builder {
         return $this;
     }
 
+    /**
+     * Set product category filter.
+     *
+     * @param string|array $categories Category slug(s) or array of slugs.
+     * @return self
+     */
+    public function set_category( $categories ) {
+        if ( ! empty( $categories ) ) {
+            // Convert string to array if needed
+            if ( is_string( $categories ) ) {
+                $categories = array_map( 'trim', explode( ',', $categories ) );
+            }
+            
+            // Sanitize category slugs
+            $categories = array_map( 'sanitize_title', $categories );
+            
+            // Set up tax_query for product categories
+            $this->args['tax_query'] = [
+                [
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'slug',
+                    'terms'    => $categories,
+                ],
+            ];
+        }
+        return $this;
+    }
+
 
 
     /**

@@ -95,11 +95,6 @@ class Shortcode_Handler {
             $query_builder->set_exclude_ids( $atts['exclude_ids'] );
         }
 
-        if ( ! empty( $atts['category'] ) ) {
-            $query_builder->set_category( $atts['category'] );
-        }
-
-
         $query = $query_builder->get_query();
 
         // 2. Generate Unique ID for Scoping

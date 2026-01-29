@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
                         <h3 class="hexagrid-product-title">
                             <a href="<?php the_permalink(); ?>">
-                                <?php the_title(); ?>
+                                <?php echo wp_kses_post( get_the_title() ); ?>
                             </a>
                         </h3>
                     </div>

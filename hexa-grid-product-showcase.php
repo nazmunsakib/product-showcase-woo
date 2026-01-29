@@ -33,6 +33,19 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 }
 
 /**
+ * Declare WooCommerce HPOS compatibility
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function hexagrid_before_woocommerce_init_render(){
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+add_filter('before_woocommerce_init', 'hexagrid_before_woocommerce_init_render');
+
+/**
  * Initialize the plugin.
  */
 function hexagrid_product_showcase_init() {
