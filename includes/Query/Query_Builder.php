@@ -82,6 +82,19 @@ class Query_Builder {
      * @return self
      */
     public function set_order( $orderby = 'date', $order = 'DESC' ) {
+        // Allowed orderby values
+        $allowed_orderby = [ 'date', 'price', 'rand', 'title', 'popularity', 'ID', 'menu_order' ];
+        if ( ! in_array( $orderby, $allowed_orderby, true ) ) {
+            $orderby = 'date';
+        }
+
+        // Allowed order values
+        $allowed_order = [ 'ASC', 'DESC' ];
+        $order = strtoupper( $order );
+        if ( ! in_array( $order, $allowed_order, true ) ) {
+            $order = 'DESC';
+        }
+
         $this->args['orderby'] = $orderby;
         $this->args['order']   = $order;
         return $this;

@@ -19,28 +19,29 @@ class Dynamic_Styles {
      * @return string CSS string.
      */
     public static function generate( $atts, $unique_id = '' ) {
-        $theme_color = isset( $atts['theme_color'] ) ? $atts['theme_color'] : '';
+        // Strictly sanitize hex color
+        $theme_color = isset( $atts['theme_color'] ) ? sanitize_hex_color( $atts['theme_color'] ) : '';
 
         if ( empty( $theme_color ) ) {
             return '';
         }
 
         // Ensure ID selector format
-        $scope = $unique_id ? "#{$unique_id} " : '';
+        $scope = $unique_id ? '#' . esc_attr( $unique_id ) . ' ' : '';
 
         $css = '<style>';
         
         // Backgrounds (Badges, Buttons)
-        $css .= "{$scope}.hexagrid-sale-badge { background-color: {$theme_color} !important; }";
-        $css .= "{$scope}.hexagrid-add-btn>a { background-color: {$theme_color} !important; }";
-        $css .= "{$scope}.hexagrid-product-price ins .amount { color: {$theme_color} !important; }";
-        $css .= "{$scope}.hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: {$theme_color} !important; border-color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-sale-badge { background-color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= "{$scope}.hexagrid-add-btn>a { background-color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= "{$scope}.hexagrid-product-price ins .amount { color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= "{$scope}.hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; border-color: " . esc_attr( $theme_color ) . " !important; }";
         
         // Text Hover (Links) - NOW USING THEME COLOR
-        $css .= "{$scope}.hexagrid-product-title a:hover, {$scope}.hexagrid-product-category a:hover { color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-product-title a:hover, {$scope}.hexagrid-product-category a:hover { color: " . esc_attr( $theme_color ) . " !important; }";
         
         // Pagination/Action buttons if needed
-        $css .= "{$scope}.swiper-button-next, {$scope}.swiper-button-prev { color: {$theme_color} !important; }";
+        $css .= "{$scope}.swiper-button-next, {$scope}.swiper-button-prev { color: " . esc_attr( $theme_color ) . " !important; }";
 
         $css .= '</style>';
 

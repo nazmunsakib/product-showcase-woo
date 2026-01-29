@@ -27,7 +27,7 @@ class Meta_Box {
      */
     public function enqueue_admin_assets() {
         global $post_type;
-        if ( 'product_show_preset' === $post_type ) {
+        if ( 'hexagrid_show_preset' === $post_type ) {
             // WP Color Picker
             wp_enqueue_style( 'wp-color-picker' );
             wp_enqueue_script( 'wp-color-picker' );

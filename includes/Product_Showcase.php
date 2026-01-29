@@ -52,7 +52,7 @@ class Product_Showcase {
      */
     public function on_plugins_loaded() {
         // Load text domain etc. - Not needed for WP Repo
-        // load_plugin_textdomain( 'hexa-grid-product-showcase', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+        load_plugin_textdomain( 'hexa-grid-product-showcase', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
         
         // Register services early so hooks (like init for CPT) can be added correctly.
         $this->register_services();
