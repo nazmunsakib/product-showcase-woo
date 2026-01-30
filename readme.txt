@@ -13,7 +13,7 @@ Build a Beautiful WooCommerce Product Showcase and WooCommerce Category Display 
 
 == Description ==
 
-Hexa Grid – Product Showcase and Category Display for WooCommerce is a lightweight and flexible WooCommerce Product Showcase plugin designed to help store owners present products and categories in modern, responsive layouts.
+**Hexa Grid – Product Showcase and Category Display** is a lightweight WooCommerce Product Showcase plugin that lets you build responsive product grids, carousel sliders, list views, and table layouts, along with structured WooCommerce Category Display sections to improve product visibility and store navigation.
 
 A professional WooCommerce store needs more than the default shop layout. Customers expect visually engaging product sections and easy navigation between categories. This plugin makes it simple to create a high-converting WooCommerce Product Showcase while also building a clean and organized WooCommerce Category Display anywhere on your website.
 
