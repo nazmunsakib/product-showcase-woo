@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Hexa Grid – Product Showcase and Category Layouts
+ * Plugin Name: Hexa Grid
  * Plugin URI: https://addonskit.com
- * Description: Professional Product Showcase with Unlimited Grid, List, Slider and Table Layout for WooCommerce.
+ * Description: Beautiful Product & Category Showcase with Unlimited Grid, List, Slider and Table Layouts.
  * Version: 1.0.0
  * Author: Nazmun Sakib
  * Author URI: https://nazmunsakib.com
