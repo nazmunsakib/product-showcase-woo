@@ -21,19 +21,23 @@ With an easy shortcode system, you can add a WooCommerce Product Showcase or Woo
 
 Whether you want to highlight featured items, promote sales, or improve store navigation with a visual WooCommerce Category Display, Hexa Grid gives you full control while keeping your WooCommerce website fast and lightweight.
 
+==Key features include:==
+
+* Grid Layouts
+* Carousel Slider
+* List Layouts
+* Table Layouts
+* Masonry Layouts
+* Category Display
+* Product Load More
+* Product Filter
+* Tabs Layouts
+
 = Why Use This WooCommerce Product Showcase Plugin? =
 
 A well-designed WooCommerce Product Showcase improves product visibility and increases conversions. Instead of forcing visitors to scroll through long default shop pages, you can strategically place product showcase sections that draw attention to key products.
 
 At the same time, a structured WooCommerce Category Display makes browsing easier. Customers can quickly understand your store layout and jump directly to the category they want. Combining a WooCommerce Product Showcase with a WooCommerce Category Display significantly improves user experience and reduces bounce rates.
-
-==Key benefits include:
-
-* Increase visibility with targeted WooCommerce Product Showcase sections  
-* Improve navigation using a visual WooCommerce Category Display  
-* Add layouts anywhere using simple shortcodes  
-* Keep your site fast with lightweight, optimized code  
-* Provide a better shopping experience on all devices  
 
 == WooCommerce Product Showcase Layouts ==
 
@@ -107,6 +111,14 @@ Hexa Grid is perfect for:
 * Modern WooCommerce store redesigns  
 
 If you want to create a professional WooCommerce Product Showcase and structured WooCommerce Category Display, this plugin provides a simple and effective solution.
+
+==Key benefits include:==
+
+* Increase visibility with targeted WooCommerce Product Showcase sections  
+* Improve navigation using a visual WooCommerce Category Display  
+* Add layouts anywhere using simple shortcodes  
+* Keep your site fast with lightweight, optimized code  
+* Provide a better shopping experience on all devices  
 
 == Installation ==
 
