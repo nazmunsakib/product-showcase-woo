@@ -36,16 +36,17 @@ class Shortcode_Handler {
             
             // Map meta keys to shortcode attributes
             $meta_map = [
-                'layout'      => '_hexagrid_layout_type',
-                'style'       => '_hexagrid_layout_style',
-                'limit'       => '_hexagrid_query_limit',
-                'columns'     => '_hexagrid_columns',
-                'category'    => '_hexagrid_categories', // This is an array
-                'ids'         => '_hexagrid_include_ids',
-                'exclude_ids' => '_hexagrid_exclude_ids',
-                'orderby'     => '_hexagrid_orderby',
-                'order'       => '_hexagrid_order',
-                'theme_color' => '_hexagrid_theme_color',
+                'layout'       => '_hexagrid_layout_type',
+                'style'        => '_hexagrid_layout_style',
+                'content_type' => '_hexagrid_content_type',
+                'limit'        => '_hexagrid_query_limit',
+                'columns'      => '_hexagrid_columns',
+                'category'     => '_hexagrid_categories', // This is an array
+                'ids'          => '_hexagrid_include_ids',
+                'exclude_ids'  => '_hexagrid_exclude_ids',
+                'orderby'      => '_hexagrid_orderby',
+                'order'        => '_hexagrid_order',
+                'theme_color'  => '_hexagrid_theme_color',
             ];
 
             foreach ( $meta_map as $att_key => $meta_key ) {
@@ -64,17 +65,18 @@ class Shortcode_Handler {
         }
 
         $atts = shortcode_atts( [
-            'layout'      => 'grid',
-            'style'       => 'layout-1',
-            'limit'       => 12,
-            'columns'     => 3,
-            'category'    => '',
-            'ids'         => '',
-            'exclude_ids' => '',
-            'orderby'     => 'date',
-            'order'       => 'DESC',
-            'theme_color' => '',
-            'preset_id'   => '',
+            'layout'       => 'grid',
+            'style'        => 'grid-1',
+            'content_type' => 'product',
+            'limit'        => 12,
+            'columns'      => 3,
+            'category'     => '',
+            'ids'          => '',
+            'exclude_ids'  => '',
+            'orderby'      => 'date',
+            'order'        => 'DESC',
+            'theme_color'  => '#3291b6',
+            'preset_id'    => '',
         ], $atts, 'hexagrid_product_showcase' );
 
         // 1. Build Query

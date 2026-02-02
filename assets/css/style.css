@@ -128,7 +128,7 @@
 }
 
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn:hover>a {
+.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a {
     background-color: var(--hexagrid-color-primary-hover);
 }
 
@@ -154,6 +154,9 @@
     color: #fff;
     padding: 3px 8px;
     border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
     background-color: var(--hexagrid-color-primary);
 }
 
@@ -184,7 +187,7 @@
    Product Showcase - Grid Layout Style 1
    ========================================= */
 
-.hexagrid-grid-layout-1 .hexagrid-layout-grid {
+.hexagrid-layout-grid {
     display: grid;
     grid-gap: var(--hexagrid-gap-lg);
     padding: 20px 0;
@@ -215,53 +218,53 @@
     grid-template-columns: repeat(6, 1fr);
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-image-area {
+.hexagrid-grid-1 .hexagrid-product-image-area {
     position: relative;
     overflow: hidden;
     background: #f9f9f9;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-image-area img {
+.hexagrid-grid-1 .hexagrid-product-image-area img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product:hover .hexagrid-product-image-area img {
+.hexagrid-grid-1 .hexagrid-product:hover .hexagrid-product-image-area img {
     transform: scale(1.05);
 }
 
 /* Content */
-.hexagrid-grid-layout-1 .hexagrid-product-content-area {
+.hexagrid-grid-1 .hexagrid-product-content-area {
     padding: 0 15px 15px 15px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-title a {
+.hexagrid-grid-1 .hexagrid-product-title a {
     color: #2d3436;
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-title a:hover {
+.hexagrid-grid-1 .hexagrid-product-title a:hover {
     color: var(--hexagrid-color-primary);
 }
 
 /* Rating */
-.hexagrid-grid-layout-1 .hexagrid-product-rating {
+.hexagrid-grid-1 .hexagrid-product-rating {
     font-size: 14px;
 }
 
-.hexagrid-grid-layout-1 .star-rating {
+.hexagrid-grid-1 .star-rating {
     float: none;
     margin: 0;
 }
 
 /* Footer (Price + Cart) */
-.hexagrid-grid-layout-1 .hexagrid-product-footer {
+.hexagrid-grid-1 .hexagrid-product-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -269,25 +272,25 @@
 }
 
 /* Price */
-.hexagrid-grid-layout-1 .hexagrid-product-price .amount {
+.hexagrid-grid-1 .hexagrid-product-price .amount {
     font-size: 16px;
     font-weight: 700;
     color: #2d3436;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-price del .amount {
+.hexagrid-grid-1 .hexagrid-product-price del .amount {
     color: #b2bec3;
     font-size: 14px;
     font-weight: 400;
     margin-right: 5px;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-price ins {
+.hexagrid-grid-1 .hexagrid-product-price ins {
     text-decoration: none;
 }
 
 /* Cart Button */
-.hexagrid-grid-layout-1 .hexagrid-product-cart-btn a {
+.hexagrid-grid-1 .hexagrid-product-cart-btn a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -300,23 +303,23 @@
     text-decoration: none !important;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-cart-btn a:hover {
+.hexagrid-grid-1 .hexagrid-product-cart-btn a:hover {
     background-color: var(--hexagrid-color-primary-hover);
     color: #fff;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product:hover .hexagrid-product-cart-btn a {
+.hexagrid-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a {
     color: #fff;
 }
 
-.hexagrid-grid-layout-1 .hexagrid-product-cart-btn .dashicons {
+.hexagrid-grid-1 .hexagrid-product-cart-btn .dashicons {
     font-size: 18px;
     width: 18px;
     height: 18px;
     line-height: 18px;
 }
 
-.hexagrid-grid-layout-1 a.added_to_cart.wc-forward {
+.hexagrid-grid-1 a.added_to_cart.wc-forward {
     display: none !important;
 }
 
@@ -351,66 +354,66 @@
    Product Showcase - List Layout Style 1
    ========================================= */
 
-.hexagrid-list-layout-1 .hexagrid-layout-list {
+.hexagrid-list-1 .hexagrid-layout-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.hexagrid-list-layout-1 .hexagrid-product-wrapper {
+.hexagrid-list-1 .hexagrid-product-wrapper {
     flex-direction: row;
 }
 
-.hexagrid-list-layout-1 .hexagrid-product-wrapper:hover {
+.hexagrid-list-1 .hexagrid-product-wrapper:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 /* Image - Left */
-.hexagrid-list-layout-1 .hexagrid-lproduct-image-area {
+.hexagrid-list-1 .hexagrid-lproduct-image-area {
     flex: 0 0 300px;
     overflow: hidden;
     flex-shrink: 0;
     position: relative;
 }
 
-.hexagrid-list-layout-1 .hexagrid-lproduct-image-area a {
+.hexagrid-list-1 .hexagrid-lproduct-image-area a {
     display: block;
 }
 
-.hexagrid-list-layout-1 .hexagrid-lproduct-image-area img {
+.hexagrid-list-1 .hexagrid-lproduct-image-area img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     mix-blend-mode: multiply;
 }
 
-.hexagrid-list-layout-1 .hexagrid-product-content-area {
+.hexagrid-list-1 .hexagrid-product-content-area {
     padding: 15px 15px 15px 0;
 }
 
 /* Content - Middle */
 
-.hexagrid-list-layout-1 .hexagrid-product-content-area .hexagrid-product-rating {
+.hexagrid-list-1 .hexagrid-product-content-area .hexagrid-product-rating {
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 14px;
 }
 
-.hexagrid-list-layout-1 .hexagrid-product-content-area .hexagrid-product-price ins {
+.hexagrid-list-1 .hexagrid-product-content-area .hexagrid-product-price ins {
     text-decoration: none;
 }
 
 /* Price (Now in Content) */
-.hexagrid-list-layout-1 .hexagrid-product-content-area .hexagrid-product-price .amount {
+.hexagrid-list-1 .hexagrid-product-content-area .hexagrid-product-price .amount {
     font-size: 20px;
     line-height: 27px;
     font-weight: 600;
     color: var(--hexagrid-color-primary);
 }
 
-.hexagrid-list-layout-1 .hexagrid-product-content-area .hexagrid-product-price del .amount {
+.hexagrid-list-1 .hexagrid-product-content-area .hexagrid-product-price del .amount {
     color: #b2bec3;
     font-size: 18px;
     font-weight: 400;
@@ -418,7 +421,7 @@
 }
 
 
-.hexagrid-list-layout-1 .hexagrid-layout-list .hexagrid-sale-badge {
+.hexagrid-list-1 .hexagrid-layout-list .hexagrid-sale-badge {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -426,19 +429,19 @@
 }
 
 /* Rating Refinements */
-.hexagrid-list-layout-1 .hexagrid-rating-average {
+.hexagrid-list-1 .hexagrid-rating-average {
     font-weight: 700;
     color: #333;
     margin-left: 5px;
     font-size: 13px;
 }
 
-.hexagrid-list-layout-1 .hexagrid-rating-separator {
+.hexagrid-list-1 .hexagrid-rating-separator {
     margin: 0 5px;
     color: #ccc;
 }
 
-.hexagrid-list-layout-1 .hexagrid-review-count {
+.hexagrid-list-1 .hexagrid-review-count {
     margin-left: 0;
     color: #777;
     font-size: 13px;
@@ -447,17 +450,17 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hexagrid-list-layout-1 .hexagrid-product-wrapper {
+    .hexagrid-list-1 .hexagrid-product-wrapper {
         flex-direction: column;
         align-items: flex-start;
         padding: 15px;
     }
 
-    .hexagrid-list-layout-1 .hexagrid-lproduct-image-area {
+    .hexagrid-list-1 .hexagrid-lproduct-image-area {
         width: 100%;
     }
 
-    .hexagrid-list-layout-1 .hexagrid-product-content-area {
+    .hexagrid-list-1 .hexagrid-product-content-area {
         width: 100%;
         padding: 20px;
     }

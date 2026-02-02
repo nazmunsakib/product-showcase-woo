@@ -21,16 +21,16 @@ class Slider_Layout implements Layout_Interface {
             return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
-        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'layout-1';
+        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'slider-1';
         $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/' . $style . '.php';
 
         if ( ! file_exists( $template_path ) ) {
-             $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/layout-1.php';
+             $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/slider-1.php';
         }
         
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-' . esc_attr( $style ) . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

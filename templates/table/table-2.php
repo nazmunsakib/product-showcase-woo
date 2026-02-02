@@ -1,6 +1,6 @@
 <?php
 /**
- * Table Layout Template - Style 1
+ * Table Layout Template - Style 2
  *
  * @var \WP_Query $query
  * @var int $columns
@@ -8,7 +8,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
-<div class="hexagrid-layout-table hexagrid-table-style-1">
+<div class="hexagrid-layout-table">
     <div class="hexagrid-table-responsive">
         <table class="hexagrid-product-table">
             <thead>

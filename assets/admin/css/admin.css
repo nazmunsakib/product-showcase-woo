@@ -1,167 +1,553 @@
-/* Main Wrapper */
+/* Admin Styles for HexaGrid Product Showcase */
+
+:root {
+    --hexagrid-primary: #3291b6;
+    --hexagrid-secondary: #bb8ed0;
+    --hexagrid-bg: #f8f9fa;
+    --hexagrid-white: #ffffff;
+    --hexagrid-text: #3c434a;
+    --hexagrid-text-light: #646970;
+    --hexagrid-border: #dcdcde;
+    --hexagrid-border-focus: #3291b6;
+    --hexagrid-success: #008a20;
+    --hexagrid-radius: 8px;
+    --hexagrid-radius-sm: 4px;
+    --hexagrid-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    --hexagrid-shadow-hover: 0 8px 15px rgba(50, 145, 182, 0.15);
+    /* Tinted transition shadow */
+}
+
+/* Container */
 .hexagrid-meta-box-wrapper {
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    background: var(--hexagrid-bg);
+    border-radius: var(--hexagrid-radius);
+    padding: 20px;
+    margin: -12px -12px -24px;
+    /* Counteract WP default meta box padding */
+    box-sizing: border-box;
 }
 
-/* Header */
-.hexagrid-meta-header {
-    background: #1e2733;
-    /* Darker blue/black from screenshot */
-    color: #fff;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.hexagrid-meta-box-wrapper * {
+    box-sizing: border-box;
 }
 
-.hexagrid-meta-header h2 {
-    color: #fff;
+/* Main Header */
+.hexagrid-main-header {
+    background: var(--hexagrid-border);
+    padding: 24px 30px;
+    border-radius: var(--hexagrid-radius);
+    margin-bottom: 25px;
+    color: var(--hexagrid-white);
+    box-shadow: 0 4px 6px rgba(50, 145, 182, 0.2);
+}
+
+.hexagrid-main-header h2 {
+    color: var(--hexagrid-white);
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+}
+
+.hexagrid-main-header p {
+    color: rgba(255, 255, 255, 0.9);
     margin: 0;
     font-size: 16px;
-    font-weight: 500;
-}
-
-.hexagrid-meta-header .dashicons {
-    font-size: 20px;
-    color: #a0a5aa;
-}
-
-/* Content */
-.hexagrid-meta-box-content {
-    padding: 20px;
 }
 
 /* Sections */
 .hexagrid-section {
-    border: none;
-    background: transparent;
-    padding: 0;
-    margin-bottom: 30px;
+    background: var(--hexagrid-white);
+    border: 1px solid #e0e0e0;
+    border-radius: var(--hexagrid-radius);
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    transition: all 0.2s ease;
 }
 
-.hexagrid-section-title {
-    font-size: 15px;
-    font-weight: 500;
-    margin: 0 0 15px 0;
-    padding: 0;
-    border: none;
-    color: #1e2733;
+/* Section Header */
+.hexagrid-section-header {
+    background: var(--hexagrid-primary);
+    padding: 15px 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--hexagrid-white);
 }
 
-.hexagrid-step-number {
-    display: inline-flex;
+.hexagrid-section-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: #1e2733;
-    color: #fff;
-    border-radius: 50%;
-    font-size: 12px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.hexagrid-section-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--hexagrid-white);
+}
+
+.hexagrid-section-info {
+    flex-grow: 1;
+}
+
+.hexagrid-section-info h3 {
+    margin: 0 0 2px 0;
+    font-size: 18px;
+    color: var(--hexagrid-white);
     font-weight: 600;
 }
 
-/* Forms */
+.hexagrid-section-info p {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hexagrid-section-toggle {
+    color: var(--hexagrid-white);
+    transition: transform 0.3s ease;
+}
+
+.hexagrid-section.closed .hexagrid-section-toggle {
+    transform: rotate(180deg);
+}
+
+.hexagrid-section-body {
+    padding: 25px;
+}
+
+.hexagrid-section.closed .hexagrid-section-body {
+    display: none;
+}
+
+/* Form Groups */
 .hexagrid-form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .hexagrid-form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #3c434a;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--hexagrid-text);
+    font-size: 16px;
 }
 
-.widefat {
-    border: 1px solid #dcdcde;
-    box-shadow: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    height: auto;
-    font-size: 14px;
-    color: #3c434a;
-}
-
-.widefat:focus {
-    border-color: #2271b1;
-    box-shadow: 0 0 0 1px #2271b1;
-}
-
-/* Row/Col Helper */
 .hexagrid-row {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .hexagrid-col-6 {
     flex: 1;
-    min-width: 200px;
+    margin-bottom: 0;
 }
 
-/* Shortcode Preview */
-.hexagrid-shortcode-preview-wrapper {
+/* Inputs & Selects */
+input[type="text"].widefat,
+input[type="number"].widefat,
+select.widefat {
+    height: 50px;
+    border: 1px solid var(--hexagrid-border);
+    border-radius: var(--hexagrid-radius-sm);
+    padding: 0 12px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fcfcfc;
+}
+
+input[type="text"].widefat:focus,
+input[type="number"].widefat:focus,
+select.widefat:focus {
+    border-color: var(--hexagrid-primary);
+    box-shadow: 0 0 0 1px var(--hexagrid-primary);
+    outline: none;
+}
+
+/* --- Content Type Selector (Modern) --- */
+.hexagrid-content-type-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 350px);
+    gap: 20px;
+}
+
+.hexagrid-content-type-option input[type="radio"] {
+    display: none;
+}
+
+.hexagrid-content-type-card {
+    display: flex;
+    align-items: center;
     background: #fff;
-    border-top: 1px solid #f0f0f1;
-    padding-top: 20px;
-    margin-top: 20px;
+    border: 1px solid var(--hexagrid-border);
+    border-radius: var(--hexagrid-radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
 }
 
-.hexagrid-shortcode-preview-wrapper label {
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card {
+    border-color: var(--hexagrid-primary);
+    background-color: rgba(50, 145, 182, 0.03);
+    /* Subtle blue tint */
+    box-shadow: 0 0 0 1px var(--hexagrid-primary), 0 4px 12px rgba(50, 145, 182, 0.1);
+}
+
+/* Icon box */
+.hexagrid-content-type-icon {
+    width: 48px;
+    height: 48px;
+    background: #eff2f5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    transition: background-color 0.3s;
+}
+
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card .hexagrid-content-type-icon {
+    background: var(--hexagrid-primary);
+}
+
+.hexagrid-content-type-icon img {
+    width: 24px;
+    height: 24px;
+    /* We'll filter SVGs to white when active if possible via CSS filter, or rely on design */
+    transition: filter 0.3s;
+}
+
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card .hexagrid-content-type-icon img {
+    filter: brightness(0) invert(1);
+    /* Make icon white */
+}
+
+.hexagrid-content-type-info {
+    flex-grow: 1;
+}
+
+.hexagrid-content-type-title {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #1e2733;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--hexagrid-text);
+    margin-bottom: 4px;
 }
 
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card .hexagrid-content-type-title {
+    color: var(--hexagrid-primary);
+}
+
+.hexagrid-content-type-desc {
+    display: block;
+    font-size: 16px;
+    color: var(--hexagrid-text-light);
+}
+
+/* Radio Dot indicator */
+.hexagrid-content-type-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--hexagrid-border);
+    border-radius: 50%;
+    position: relative;
+    margin-left: 10px;
+    transition: border-color 0.3s;
+}
+
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card .hexagrid-content-type-radio {
+    border-color: var(--hexagrid-primary);
+}
+
+.hexagrid-radio-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--hexagrid-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hexagrid-content-type-option input[type="radio"]:checked+.hexagrid-content-type-card .hexagrid-radio-dot {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* --- Layout Type Selector --- */
+/* This uses the SECONDARY color for highlights to match customer image */
+.hexagrid-layout-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    gap: 15px;
+}
+
+.hexagrid-layout-option input[type="radio"] {
+    display: none;
+}
+
+.hexagrid-layout-card {
+    border: 1px solid var(--hexagrid-border);
+    border-radius: var(--hexagrid-radius);
+    background: #fff;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card {
+    border-color: var(--hexagrid-secondary);
+    background-color: rgba(187, 142, 208, 0.05);
+    box-shadow: 0 0 0 1px var(--hexagrid-secondary), 0 4px 12px rgba(187, 142, 208, 0.15);
+}
+
+.hexagrid-layout-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.hexagrid-layout-icon img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* On select, slightly enlarge icon and maybe filter color if SVG allows */
+.hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card .hexagrid-layout-icon {
+    transform: translateY(-2px);
+}
+
+.hexagrid-layout-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--hexagrid-text);
+}
+
+.hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card .hexagrid-layout-label {
+    color: var(--hexagrid-secondary);
+}
+
+/* Checkmark for Layout Type - Using Secondary Color */
+.hexagrid-layout-checkmark {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    color: var(--hexagrid-secondary);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+}
+
+.hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card .hexagrid-layout-checkmark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* --- Layout Variation Selector --- */
+/* Back to Primary Theme */
+.hexagrid-layout-variation-group {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hexagrid-layout-variation-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.hexagrid-variation-option input[type="radio"] {
+    display: none;
+}
+
+.hexagrid-variation-card {
+    border: 1px solid var(--hexagrid-border);
+    border-radius: var(--hexagrid-radius);
+    overflow: hidden;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.hexagrid-variation-option input[type="radio"]:checked+.hexagrid-variation-card {
+    border-color: var(--hexagrid-primary);
+    box-shadow: 0 0 0 1px var(--hexagrid-primary), 0 8px 18px rgba(50, 145, 182, 0.15);
+}
+
+.hexagrid-variation-preview {
+    background: #f1f4f9;
+    /* Light gray-blue bg for skeleton area */
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    border-bottom: 1px solid #eee;
+}
+
+.hexagrid-variation-option input[type="radio"]:checked+.hexagrid-variation-card .hexagrid-variation-preview {
+    background: rgba(50, 145, 182, 0.05);
+    /* Tinted background when selected */
+    border-bottom-color: rgba(50, 145, 182, 0.2);
+}
+
+.hexagrid-variation-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.hexagrid-variation-option input[type="radio"]:checked+.hexagrid-variation-card .hexagrid-variation-preview img {
+    opacity: 1;
+}
+
+.hexagrid-variation-label {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--hexagrid-text);
+}
+
+.hexagrid-variation-option input[type="radio"]:checked+.hexagrid-variation-card .hexagrid-variation-label {
+    color: var(--hexagrid-primary);
+    font-weight: 600;
+}
+
+/* Variation Checkmark overlay */
+.hexagrid-variation-checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    color: var(--hexagrid-primary);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hexagrid-variation-option input[type="radio"]:checked+.hexagrid-variation-card .hexagrid-variation-checkmark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* --- Shortcode --- */
 .hexagrid-shortcode-container {
     display: flex;
-    gap: 10px;
-    background: #f6f7f7;
-    border: 1px solid #dcdcde;
-    padding: 5px;
-    border-radius: 4px;
-    align-items: center;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid var(--hexagrid-primary);
+    border-radius: var(--hexagrid-radius-sm);
+    overflow: hidden;
+    margin-top: 5px;
 }
 
 .hexagrid-shortcode-container code {
-    background: transparent;
-    padding: 5px 10px;
     flex-grow: 1;
-    color: #2c3338;
-    font-family: monospace;
-    font-size: 13px;
-    margin: 0;
+    padding: 12px 15px;
+    background: var(--hexagrid-primary);
+    color: #fff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 
 .hexagrid-copy-btn {
-    background: #13273f !important;
-    /* Dark button from screenshot */
-    color: #fff !important;
     border: none !important;
-    border-radius: 4px !important;
-    padding: 5px 15px !important;
-    font-size: 13px !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: background 0.2s;
+    background: var(--hexagrid-primary) !important;
+    color: #fff !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 0 !important;
+    padding: 0 20px !important;
+    font-weight: 500;
+    transition: background 0.2s !important;
 }
 
 .hexagrid-copy-btn:hover {
-    background: #2c3e50 !important;
+    background: #257a9b !important;
+    /* daker shade of primary */
 }
 
-.hexagrid-copy-btn .dashicons {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+/* Pulse Animation */
+@keyframes hexagrid-pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hexagrid-pulse-animation {
+    animation: hexagrid-pulse 0.4s ease-in-out;
+}
+
+/* Accessibility Focus */
+.hexagrid-layout-card:focus,
+.hexagrid-variation-card:focus,
+.hexagrid-content-type-card:focus {
+    outline: 2px solid var(--hexagrid-primary);
+    outline-offset: 2px;
+}
+
+/* No variations message */
+.hexagrid-no-variations {
+    background: #fff4f4;
+    border-left: 4px solid #d63638;
+    color: #d63638;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
 }

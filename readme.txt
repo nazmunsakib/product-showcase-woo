@@ -4,7 +4,7 @@ Tags: woocommerce product showcase, woocommerce category display, woocommerce pr
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
@@ -179,6 +179,14 @@ Yes, the plugin follows WordPress internationalization standards and is translat
 6. Plugin Settings Panel  
 
 == Changelog ==
+
+= 1.1.0 =
+* New: Completely redesigned Admin UI with modern card-based interface.
+* New: Added Layout (Grid Modern vs Classic, List layouts).
+* New: Added Content Type selector (Product vs Category) support in Admin.
+* New: Implemented new template structure for better extensibility.
+* Improved: Admin interface visual hierarchy using Primary (#3291b6) and Secondary (#bb8ed0) brand colors.
+* Fixed: Standardized template naming conventions.
 
 = 1.0.0 =
 * Initial release
