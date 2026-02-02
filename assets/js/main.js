@@ -2,33 +2,55 @@ document.addEventListener('DOMContentLoaded', function () {
     var sliders = document.querySelectorAll('.hexagrid-layout-slider');
 
     sliders.forEach(function (slider) {
-        new Swiper(slider, {
+        var container = slider.closest('.hexagrid-slider-container');
+        var columns = 4;
+        var nav = true;
+        var dots = false;
+        var autoplay = false;
+
+        if (container) {
+            columns = parseInt(container.getAttribute('data-columns')) || 4;
+            nav = container.getAttribute('data-nav') === 'yes';
+            dots = container.getAttribute('data-dots') === 'yes';
+            autoplay = container.getAttribute('data-autoplay') === 'yes';
+        }
+
+        var swiperConfig = {
             slidesPerView: 1,
             spaceBetween: 20,
             loop: true,
-            pagination: {
+            pagination: dots ? {
                 el: slider.querySelector('.swiper-pagination'),
                 clickable: true,
-            },
-            navigation: {
+            } : false,
+            navigation: nav ? {
                 nextEl: slider.querySelector('.swiper-button-next'),
                 prevEl: slider.querySelector('.swiper-button-prev'),
-            },
+            } : false,
             breakpoints: {
                 640: {
-                    slidesPerView: 2,
+                    slidesPerView: Math.min(2, columns),
                     spaceBetween: 20,
                 },
                 768: {
-                    slidesPerView: 3,
+                    slidesPerView: Math.min(3, columns),
                     spaceBetween: 20,
                 },
                 1024: {
-                    slidesPerView: 4,
+                    slidesPerView: columns,
                     spaceBetween: 20,
                 },
             },
-        });
+        };
+
+        if (autoplay) {
+            swiperConfig.autoplay = {
+                delay: 3000,
+                disableOnInteraction: false,
+            };
+        }
+
+        new Swiper(slider, swiperConfig);
     });
 });
 

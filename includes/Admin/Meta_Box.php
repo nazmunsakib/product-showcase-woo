@@ -286,7 +286,7 @@ class Meta_Box {
                         </div>
                         
                         <div class="hexagrid-row">
-                            <p class="hexagrid-form-group hexagrid-col-6">
+                            <p class="hexagrid-form-group hexagrid-col-6" id="hexagrid-columns-wrapper">
                                 <label for="hexagrid_columns"><?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></label>
                                 <select name="hexagrid_columns" id="hexagrid_columns" class="widefat">
                                     <option value="1" <?php selected( $columns, 1 ); ?>>1 <?php esc_html_e( 'Column', 'hexa-grid-product-showcase' ); ?></option>
@@ -295,8 +295,48 @@ class Meta_Box {
                                     <option value="4" <?php selected( $columns, 4 ); ?>>4 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
                                 </select>
                             </p>
-                            
                         </div>
+
+                        <!-- Slider Specific Settings -->
+                        <?php
+                            $slider_nav      = get_post_meta( $post->ID, '_hexagrid_slider_nav', true ) !== 'no' ? 'yes' : 'no'; // Default yes
+                            $slider_dots     = get_post_meta( $post->ID, '_hexagrid_slider_dots', true ) === 'yes' ? 'yes' : 'no'; // Default no
+                            $slider_autoplay = get_post_meta( $post->ID, '_hexagrid_slider_autoplay', true ) === 'yes' ? 'yes' : 'no'; // Default no
+                        ?>
+                        <div id="hexagrid-slider-settings-wrapper" style="display:none; margin-top: 20px; border-top: 1px solid var(--hexagrid-border); padding-top: 20px;">
+                            <h4 style="margin-top:0; margin-bottom:15px; color: var(--hexagrid-text); font-weight: 600;"><?php esc_html_e( 'Slider Configuration', 'hexa-grid-product-showcase' ); ?></h4>
+                            
+                            <div class="hexagrid-row">
+                                <div class="hexagrid-col-4">
+                                    <div class="hexagrid-switch-container">
+                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Navigation', 'hexa-grid-product-showcase' ); ?></span>
+                                        <label class="hexagrid-switch">
+                                            <input type="checkbox" name="hexagrid_slider_nav" value="yes" <?php checked( $slider_nav, 'yes' ); ?>>
+                                            <span class="hexagrid-slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="hexagrid-col-4">
+                                    <div class="hexagrid-switch-container">
+                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Pagination Dots', 'hexa-grid-product-showcase' ); ?></span>
+                                        <label class="hexagrid-switch">
+                                            <input type="checkbox" name="hexagrid_slider_dots" value="yes" <?php checked( $slider_dots, 'yes' ); ?>>
+                                            <span class="hexagrid-slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="hexagrid-col-4">
+                                    <div class="hexagrid-switch-container">
+                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Auto Play', 'hexa-grid-product-showcase' ); ?></span>
+                                        <label class="hexagrid-switch">
+                                            <input type="checkbox" name="hexagrid_slider_autoplay" value="yes" <?php checked( $slider_autoplay, 'yes' ); ?>>
+                                            <span class="hexagrid-slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -390,16 +430,43 @@ class Meta_Box {
     }
 
     /**
+     * Get settings map for the showcase.
+     * Centralized definition of all fields, types, and sanitization.
+     */
+    private function get_settings_map() {
+        return [
+            // Layout Settings
+            'hexagrid_content_type' => [ 'sanitize' => 'sanitize_text_field' ],
+            'hexagrid_layout_type'  => [ 'sanitize' => 'sanitize_text_field', 'default' => 'grid' ],
+            'hexagrid_layout_style' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'grid-1' ],
+            'hexagrid_columns'      => [ 'sanitize' => 'intval', 'default' => 3 ],
+            
+            // Slider Specific
+            'hexagrid_slider_nav'   => [ 'type' => 'checkbox', 'default' => 'yes' ],
+            'hexagrid_slider_dots'  => [ 'type' => 'checkbox', 'default' => 'no' ],
+            'hexagrid_slider_autoplay' => [ 'type' => 'checkbox', 'default' => 'no' ],
+
+            // Query Settings
+            'hexagrid_query_limit'  => [ 'sanitize' => 'intval', 'default' => 12 ],
+            'hexagrid_include_ids'  => [ 'sanitize' => 'sanitize_text_field' ],
+            'hexagrid_exclude_ids'  => [ 'sanitize' => 'sanitize_text_field' ],
+            'hexagrid_orderby'      => [ 'sanitize' => 'sanitize_text_field', 'default' => 'date' ],
+            'hexagrid_order'        => [ 'sanitize' => 'sanitize_text_field', 'default' => 'DESC' ],
+
+            // Style Settings
+            'hexagrid_theme_color'  => [ 'sanitize' => 'sanitize_hex_color', 'default' => '#3291b6' ],
+        ];
+    }
+
+    /**
      * Save meta box data.
      *
      * @param int $post_id Post ID.
      */
     public function save_meta_box_data( $post_id ) {
-        if ( ! isset( $_POST['hexagrid_showcase_settings_nonce'] ) ) {
-            return;
-        }
-
-        if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['hexagrid_showcase_settings_nonce'] ) ), 'hexagrid_save_showcase_settings' ) ) {
+        // Security checks
+        if ( ! isset( $_POST['hexagrid_showcase_settings_nonce'] ) || 
+             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['hexagrid_showcase_settings_nonce'] ) ), 'hexagrid_save_showcase_settings' ) ) {
             return;
         }
 
@@ -411,44 +478,33 @@ class Meta_Box {
             return;
         }
 
-        // Layout Tab
-        if ( isset( $_POST['hexagrid_content_type'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_content_type', sanitize_text_field( wp_unslash( $_POST['hexagrid_content_type'] ) ) );
-        }
-        if ( isset( $_POST['hexagrid_layout_type'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_layout_type', sanitize_text_field( wp_unslash( $_POST['hexagrid_layout_type'] ) ) );
-        }
-        if ( isset( $_POST['hexagrid_layout_style'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_layout_style', sanitize_text_field( wp_unslash( $_POST['hexagrid_layout_style'] ) ) );
-        }
-        if ( isset( $_POST['hexagrid_columns'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_columns', intval( wp_unslash( $_POST['hexagrid_columns'] ) ) );
-        }
-        if ( isset( $_POST['hexagrid_query_limit'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_query_limit', intval( wp_unslash( $_POST['hexagrid_query_limit'] ) ) );
-        }
+        // Processing Loop
+        $settings = $this->get_settings_map();
 
-        // Query Tab
-        if ( isset( $_POST['hexagrid_include_ids'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_include_ids', sanitize_text_field( wp_unslash( $_POST['hexagrid_include_ids'] ) ) );
-        }
-        if ( isset( $_POST['hexagrid_exclude_ids'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_exclude_ids', sanitize_text_field( wp_unslash( $_POST['hexagrid_exclude_ids'] ) ) );
-        }
-        
+        foreach ( $settings as $field_key => $config ) {
+            $meta_key = '_' . $field_key; // Standardize meta key as _field_name
+            $type     = isset( $config['type'] ) ? $config['type'] : 'text';
+            
+            if ( $type === 'checkbox' ) {
+                // Checkbox Logic: if set in POST, value is 'yes', otherwise 'no'
+                $value = isset( $_POST[ $field_key ] ) ? 'yes' : 'no';
+                update_post_meta( $post_id, $meta_key, $value );
+            } else {
+                // Standard Input Logic
+                if ( isset( $_POST[ $field_key ] ) ) {
+                    $sanitize_func = isset( $config['sanitize'] ) ? $config['sanitize'] : 'sanitize_text_field';
+                    $raw_value     = wp_unslash( $_POST[ $field_key ] );
+                    
+                    // Apply sanitization
+                    if ( function_exists( $sanitize_func ) ) {
+                        $value = $sanitize_func( $raw_value );
+                    } else {
+                        $value = sanitize_text_field( $raw_value );
+                    }
 
-
-        if ( isset( $_POST['hexagrid_orderby'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_orderby', sanitize_text_field( wp_unslash( $_POST['hexagrid_orderby'] ) ) );
+                    update_post_meta( $post_id, $meta_key, $value );
+                }
+            }
         }
-        if ( isset( $_POST['hexagrid_order'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_order', sanitize_text_field( wp_unslash( $_POST['hexagrid_order'] ) ) );
-        }
-
-        // Style Tab
-        if ( isset( $_POST['hexagrid_theme_color'] ) ) {
-            update_post_meta( $post_id, '_hexagrid_theme_color', sanitize_hex_color( wp_unslash( $_POST['hexagrid_theme_color'] ) ) );
-        }
-
     }
 }

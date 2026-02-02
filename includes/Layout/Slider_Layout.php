@@ -28,9 +28,14 @@ class Slider_Layout implements Layout_Interface {
              $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/slider-1.php';
         }
         
+        $nav      = isset( $atts['slider_nav'] ) ? esc_attr( $atts['slider_nav'] ) : 'yes';
+        $dots     = isset( $atts['slider_dots'] ) ? esc_attr( $atts['slider_dots'] ) : 'no';
+        $autoplay = isset( $atts['slider_autoplay'] ) ? esc_attr( $atts['slider_autoplay'] ) : 'no';
+        $columns  = isset( $atts['columns'] ) ? esc_attr( $atts['columns'] ) : 3;
+        
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-' . esc_attr( $style ) . '">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-' . esc_attr( $style ) . '" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

@@ -46,7 +46,10 @@ class Shortcode_Handler {
                 'exclude_ids'  => '_hexagrid_exclude_ids',
                 'orderby'      => '_hexagrid_orderby',
                 'order'        => '_hexagrid_order',
-                'theme_color'  => '_hexagrid_theme_color',
+                'theme_color'     => '_hexagrid_theme_color',
+                'slider_nav'      => '_hexagrid_slider_nav',
+                'slider_dots'     => '_hexagrid_slider_dots',
+                'slider_autoplay' => '_hexagrid_slider_autoplay',
             ];
 
             foreach ( $meta_map as $att_key => $meta_key ) {
@@ -65,18 +68,21 @@ class Shortcode_Handler {
         }
 
         $atts = shortcode_atts( [
-            'layout'       => 'grid',
-            'style'        => 'grid-1',
-            'content_type' => 'product',
-            'limit'        => 12,
-            'columns'      => 3,
-            'category'     => '',
-            'ids'          => '',
-            'exclude_ids'  => '',
-            'orderby'      => 'date',
-            'order'        => 'DESC',
-            'theme_color'  => '#3291b6',
-            'preset_id'    => '',
+            'layout'          => 'grid',
+            'style'           => 'grid-1',
+            'content_type'    => 'product',
+            'limit'           => 12,
+            'columns'         => 3,
+            'category'        => '',
+            'ids'             => '',
+            'exclude_ids'     => '',
+            'orderby'         => 'date',
+            'order'           => 'DESC',
+            'theme_color'     => '#3291b6',
+            'slider_nav'      => 'yes',
+            'slider_dots'     => 'no',
+            'slider_autoplay' => 'no',
+            'preset_id'       => '',
         ], $atts, 'hexagrid_product_showcase' );
 
         // 1. Build Query

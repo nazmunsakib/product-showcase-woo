@@ -181,12 +181,14 @@ Yes, the plugin follows WordPress internationalization standards and is translat
 == Changelog ==
 
 = 1.1.0 =
-* New: Completely redesigned Admin UI with modern card-based interface.
-* New: Added Layout (Grid Modern vs Classic, List layouts).
-* New: Added Content Type selector (Product vs Category) support in Admin.
-* New: Implemented new template structure for better extensibility.
-* Improved: Admin interface visual hierarchy using Primary (#3291b6) and Secondary (#bb8ed0) brand colors.
-* Fixed: Standardized template naming conventions.
+* New: Completely redesigned Admin UI with modern card-based interface and branding colors.
+* New: Added Layout Variations system (Grid Modern/Classic, List Minimal/Detailed, Table Simple/Advanced, Carousel Standard/Coverflow).
+* New: Added "Content Type" selector (Product vs Category) settings.
+* New: Added "Slider Configuration" options (Navigation, Dots, Auto Play) with modern switcher controls.
+* New: Implemented intelligent conditional logic in Admin (hides irrelevant settings based on layout).
+* Improved: Refactored internal code structure (Meta Box data saving) for better scalability and performance.
+* Improved: Frontend Slider now dynamically adapts to configuration settings (autoplay, columns, navigation).
+* Fixed: Standardized template naming conventions and fallback logic.
 
 = 1.0.0 =
 * Initial release

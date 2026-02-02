@@ -93,13 +93,41 @@ jQuery(document).ready(function ($) {
         } else {
             $('.hexagrid-no-variations').show();
         }
+
+        // Conditional Logic: Columns (Grid & Slider only)
+        if (selectedLayout === 'grid' || selectedLayout === 'slider') {
+            $('#hexagrid-columns-wrapper').slideDown(200);
+        } else {
+            $('#hexagrid-columns-wrapper').slideUp(200);
+        }
+
+        // Conditional Logic: Slider Settings (Slider only)
+        if (selectedLayout === 'slider') {
+            $('#hexagrid-slider-settings-wrapper').slideDown(200);
+        } else {
+            $('#hexagrid-slider-settings-wrapper').slideUp(200);
+        }
     });
 
-    // Initialize state on page load for Layout Variations
+    // Initialize state on page load for Layout Variations & Fields
     var currentLayout = $('.hexagrid-layout-option input[type="radio"]:checked').val();
     if (currentLayout) {
         $('.hexagrid-layout-variation-group').hide(); // Hide all first
         $('.hexagrid-layout-variation-group[data-parent-layout="' + currentLayout + '"]').show();
+
+        // Initial Visibility: Columns
+        if (currentLayout === 'grid' || currentLayout === 'slider') {
+            $('#hexagrid-columns-wrapper').show();
+        } else {
+            $('#hexagrid-columns-wrapper').hide();
+        }
+
+        // Initial Visibility: Slider Settings
+        if (currentLayout === 'slider') {
+            $('#hexagrid-slider-settings-wrapper').show();
+        } else {
+            $('#hexagrid-slider-settings-wrapper').hide();
+        }
     } else {
         // Fallback default if nothing selected (unlikely in WP admin but good for safety)
         $('.hexagrid-layout-option input[type="radio"][value="grid"]').prop('checked', true).trigger('change');

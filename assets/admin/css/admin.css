@@ -551,3 +551,76 @@ select.widefat:focus {
     border-radius: 4px;
     margin-top: 15px;
 }
+
+/* Switcher Styles */
+.hexagrid-switch-container {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--hexagrid-border);
+    padding: 10px 15px;
+    border-radius: var(--hexagrid-radius);
+    transition: all 0.3s ease;
+}
+
+.hexagrid-switch-container:hover {
+    border-color: var(--hexagrid-primary);
+}
+
+.hexagrid-switch-label {
+    font-weight: 500;
+    color: var(--hexagrid-text);
+    font-size: 14px;
+}
+
+.hexagrid-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.hexagrid-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.hexagrid-slider-round {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.hexagrid-slider-round:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hexagrid-switch input:checked+.hexagrid-slider-round {
+    background-color: var(--hexagrid-primary);
+}
+
+.hexagrid-switch input:focus+.hexagrid-slider-round {
+    box-shadow: 0 0 1px var(--hexagrid-primary);
+}
+
+.hexagrid-switch input:checked+.hexagrid-slider-round:before {
+    transform: translateX(20px);
+}
