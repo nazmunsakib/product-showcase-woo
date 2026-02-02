@@ -319,9 +319,9 @@ select.widefat:focus {
 }
 
 .hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card {
-    border-color: var(--hexagrid-secondary);
-    background-color: rgba(187, 142, 208, 0.05);
-    box-shadow: 0 0 0 1px var(--hexagrid-secondary), 0 4px 12px rgba(187, 142, 208, 0.15);
+    border-color: var(--hexagrid-primary);
+    background-color: rgba(50, 145, 182, 0.05);
+    box-shadow: 0 0 0 1px var(--hexagrid-primary), 0 4px 12px rgba(50, 145, 182, 0.15);
 }
 
 .hexagrid-layout-icon {
@@ -351,17 +351,17 @@ select.widefat:focus {
 }
 
 .hexagrid-layout-option input[type="radio"]:checked+.hexagrid-layout-card .hexagrid-layout-label {
-    color: var(--hexagrid-secondary);
+    color: var(--hexagrid-primary);
 }
 
-/* Checkmark for Layout Type - Using Secondary Color */
+/* Checkmark for Layout Type - Using Primary Color */
 .hexagrid-layout-checkmark {
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 20px;
-    height: 20px;
-    color: var(--hexagrid-secondary);
+    width: 24px;
+    height: 24px;
+    color: var(--hexagrid-primary);
     opacity: 0;
     transform: scale(0.5);
     transition: all 0.2s ease;

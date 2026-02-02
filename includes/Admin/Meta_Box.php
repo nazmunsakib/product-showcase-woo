@@ -190,8 +190,9 @@ class Meta_Box {
                                             </div>
                                             <span class="hexagrid-layout-label"><?php echo esc_html( $data['label'] ); ?></span>
                                             <span class="hexagrid-layout-checkmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <path fill="white" d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
                                             </span>
                                         </div>
@@ -294,11 +295,7 @@ class Meta_Box {
                                     <option value="4" <?php selected( $columns, 4 ); ?>>4 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
                                 </select>
                             </p>
-
-                            <p class="hexagrid-form-group hexagrid-col-6">
-                                <label for="hexagrid_query_limit"><?php esc_html_e( 'Product Limit', 'hexa-grid-product-showcase' ); ?></label>
-                                <input type="number" name="hexagrid_query_limit" id="hexagrid_query_limit" value="<?php echo esc_attr( $limit ); ?>" class="widefat" min="1">
-                            </p>
+                            
                         </div>
                     </div>
                 </div>
@@ -318,9 +315,8 @@ class Meta_Box {
 
                     <div class="hexagrid-section-body">
                         <p class="hexagrid-form-group">
-                            <label for="hexagrid_include_ids"><?php esc_html_e( 'Include Products (IDs)', 'hexa-grid-product-showcase' ); ?></label>
-                            <input type="text" name="hexagrid_include_ids" id="hexagrid_include_ids" value="<?php echo esc_attr( $include_ids ); ?>" class="widefat" placeholder="e.g. 101, 105, 200">
-                             <span class="description" style="display:block; margin-top:5px; color:#666;"><?php esc_html_e( 'Enter product IDs separated by commas', 'hexa-grid-product-showcase' ); ?></span>
+                            <label for="hexagrid_query_limit"><?php esc_html_e( 'Product Limit', 'hexa-grid-product-showcase' ); ?></label>
+                            <input type="number" name="hexagrid_query_limit" id="hexagrid_query_limit" value="<?php echo esc_attr( $limit ); ?>" class="widefat" min="1">
                         </p>
 
                         <p class="hexagrid-form-group">
