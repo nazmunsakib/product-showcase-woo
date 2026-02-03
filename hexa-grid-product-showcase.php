@@ -3,7 +3,7 @@
  * Plugin Name: Hexa Grid
  * Plugin URI: https://addonskit.com
  * Description: Beautiful Product & Category Showcase with Unlimited Grid, List, Slider and Table Layouts.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Nazmun Sakib
  * Author URI: https://nazmunsakib.com
  * License: GPL v2 or later
