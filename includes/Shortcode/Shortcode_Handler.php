@@ -69,7 +69,7 @@ class Shortcode_Handler {
 
         $atts = shortcode_atts( [
             'layout'          => 'grid',
-            'style'           => 'grid-1',
+            'style'           => 'product-grid-1',
             'content_type'    => 'product',
             'limit'           => 12,
             'columns'         => 3,
