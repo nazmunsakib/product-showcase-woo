@@ -1,0 +1,413 @@
+/* Settings Builder Library Styles */
+
+:root {
+    --aksbuilder-primary: #3291b6;
+    --aksbuilder-secondary: #bb8ed0;
+    --aksbuilder-bg: #f8f9fa;
+    --aksbuilder-white: #ffffff;
+    --aksbuilder-text: #3c434a;
+    --aksbuilder-text-light: #646970;
+    --aksbuilder-border: #dcdcde;
+    --aksbuilder-border-focus: #3291b6;
+    --aksbuilder-success: #008a20;
+    --aksbuilder-radius: 8px;
+    --aksbuilder-radius-sm: 4px;
+    --aksbuilder-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    --aksbuilder-shadow-hover: 0 8px 15px rgba(50, 145, 182, 0.15);
+}
+
+/* Sections */
+.aksbuilder-section {
+    background: var(--aksbuilder-white);
+    border: 1px solid #e0e0e0;
+    border-radius: var(--aksbuilder-radius);
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+/* Section Header */
+.aksbuilder-section-header {
+    background: var(--aksbuilder-primary);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: var(--aksbuilder-white);
+}
+
+.aksbuilder-section-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.aksbuilder-section-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--aksbuilder-white);
+}
+
+.aksbuilder-section-info {
+    flex-grow: 1;
+}
+
+.aksbuilder-section-info h3 {
+    margin: 0 0 2px 0;
+    font-size: 18px;
+    color: var(--aksbuilder-white);
+    font-weight: 600;
+}
+
+.aksbuilder-section-info p {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aksbuilder-section-toggle {
+    color: var(--aksbuilder-white);
+    transition: transform 0.3s ease;
+}
+
+.aksbuilder-section.closed .aksbuilder-section-toggle {
+    transform: rotate(180deg);
+}
+
+.aksbuilder-section-body {
+    padding: 25px;
+}
+
+.aksbuilder-section.closed .aksbuilder-section-body {
+    display: none;
+}
+
+/* Form Groups */
+.aksbuilder-form-group {
+    margin-bottom: 25px;
+}
+
+.aksbuilder-form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--aksbuilder-text);
+    font-size: 16px;
+}
+
+.aksbuilder-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.aksbuilder-col-6 {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.aksbuilder-col-4 {
+    flex: 1;
+    min-width: 30%;
+}
+
+/* Inputs & Selects */
+input[type="text"].aksbuilder-input,
+input[type="number"].aksbuilder-input,
+select.aksbuilder-select {
+    height: 50px;
+    border: 1px solid var(--aksbuilder-border);
+    border-radius: var(--aksbuilder-radius-sm);
+    padding: 0 12px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fcfcfc;
+    width: 100%;
+}
+
+input[type="text"].aksbuilder-input:focus,
+input[type="number"].aksbuilder-input:focus,
+select.aksbuilder-select:focus {
+    border-color: var(--aksbuilder-primary);
+    box-shadow: 0 0 0 1px var(--aksbuilder-primary);
+    outline: none;
+}
+
+/* --- Card Checkbox/Radio Selector (Generic) --- */
+.aksbuilder-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.aksbuilder-card-option input[type="radio"],
+.aksbuilder-card-option input[type="checkbox"] {
+    display: none;
+}
+
+.aksbuilder-card {
+    border: 1px solid var(--aksbuilder-border);
+    border-radius: var(--aksbuilder-radius);
+    background: #fff;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    min-height: 100px;
+}
+
+.aksbuilder-card-row {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 20px;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card {
+    border-color: var(--aksbuilder-primary);
+    background-color: rgba(50, 145, 182, 0.05);
+    box-shadow: 0 0 0 1px var(--aksbuilder-primary), 0 4px 12px rgba(50, 145, 182, 0.15);
+}
+
+.aksbuilder-card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff2f5;
+    border-radius: 12px;
+    transition: background-color 0.3s;
+}
+
+.aksbuilder-card-row .aksbuilder-card-icon {
+    margin-bottom: 0;
+    margin-right: 15px;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-icon {
+    background: var(--aksbuilder-primary);
+}
+
+.aksbuilder-card-icon img {
+    width: 24px;
+    height: 24px;
+    transition: filter 0.3s;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-icon img {
+    filter: brightness(0) invert(1);
+}
+
+.aksbuilder-card-info {
+    flex-grow: 1;
+}
+
+.aksbuilder-card-title {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--aksbuilder-text);
+    margin-bottom: 4px;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-title {
+    color: var(--aksbuilder-primary);
+}
+
+.aksbuilder-card-desc {
+    display: block;
+    font-size: 13px;
+    color: var(--aksbuilder-text-light);
+}
+
+/* Radio Dot Indicator (for row layout like content type) */
+.aksbuilder-card-radio-dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--aksbuilder-border);
+    border-radius: 50%;
+    position: relative;
+    margin-left: 10px;
+    transition: border-color 0.3s;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-radio-dot {
+    border-color: var(--aksbuilder-primary);
+}
+
+.aksbuilder-card-radio-dot span {
+    width: 10px;
+    height: 10px;
+    background: var(--aksbuilder-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-radio-dot span {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Checkmark Indicator (for grid layout) */
+.aksbuilder-card-checkmark {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    color: var(--aksbuilder-primary);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-card-checkmark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Switcher Styles --- */
+.aksbuilder-switch-container {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--aksbuilder-border);
+    padding: 10px 15px;
+    border-radius: var(--aksbuilder-radius);
+    transition: all 0.3s ease;
+}
+
+.aksbuilder-switch-container:hover {
+    border-color: var(--aksbuilder-primary);
+}
+
+.aksbuilder-switch-label {
+    font-weight: 500;
+    color: var(--aksbuilder-text);
+    font-size: 14px;
+}
+
+.aksbuilder-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.aksbuilder-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.aksbuilder-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.aksbuilder-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.aksbuilder-switch input:checked+.aksbuilder-switch-slider {
+    background-color: var(--aksbuilder-primary);
+}
+
+.aksbuilder-switch input:focus+.aksbuilder-switch-slider {
+    box-shadow: 0 0 1px var(--aksbuilder-primary);
+}
+
+.aksbuilder-switch input:checked+.aksbuilder-switch-slider:before {
+    transform: translateX(20px);
+}
+
+/* Animations */
+@keyframes aksbuilder-pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.aksbuilder-pulse-animation {
+    animation: aksbuilder-pulse 0.4s ease-in-out;
+}
+
+/* Accessibility */
+.aksbuilder-card:focus {
+    outline: 2px solid var(--aksbuilder-primary);
+    outline-offset: 2px;
+}
+
+/* Variation specific overrides (Skeleton view) */
+.aksbuilder-variation-preview {
+    background: #f1f4f9;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-variation-preview {
+    background: rgba(50, 145, 182, 0.05);
+    border-bottom-color: rgba(50, 145, 182, 0.2);
+}
+
+.aksbuilder-variation-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0.7;
+}
+
+.aksbuilder-card-option input:checked+.aksbuilder-card .aksbuilder-variation-preview img {
+    opacity: 1;
+}
