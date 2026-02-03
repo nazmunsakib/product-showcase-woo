@@ -168,34 +168,27 @@ class Meta_Box {
                                 'product-grid-2' => [ 'label' => __( 'Product Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
                             ],
                             'product-list' => [
-                                'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
-                                'product-list-2' => [ 'label' => __( 'Product List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                                'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ]
                             ],
                             'product-slider' => [
                                 'product-slider-1' => [ 'label' => __( 'Product Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
-                                'product-slider-2' => [ 'label' => __( 'Product Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
                             ],
                             'product-table' => [
                                 'product-table-1' => [ 'label' => __( 'Product Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
-                                'product-table-2' => [ 'label' => __( 'Product Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
                             ],
                             
                             // Category variations
                             'category-grid' => [
                                 'category-grid-1' => [ 'label' => __( 'Category Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
-                                'category-grid-2' => [ 'label' => __( 'Category Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
                             ],
                             'category-list' => [
                                 'category-list-1' => [ 'label' => __( 'Category List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
-                                'category-list-2' => [ 'label' => __( 'Category List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
                             ],
                             'category-slider' => [
                                 'category-slider-1' => [ 'label' => __( 'Category Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
-                                'category-slider-2' => [ 'label' => __( 'Category Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
                             ],
                             'category-table' => [
                                 'category-table-1' => [ 'label' => __( 'Category Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
-                                'category-table-2' => [ 'label' => __( 'Category Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
                             ],
                         ];
                         
