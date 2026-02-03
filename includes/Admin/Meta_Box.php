@@ -18,8 +18,6 @@ class Meta_Box {
         add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
         add_action( 'save_post', [ $this, 'save_meta_box_data' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-        
-
     }
 
     /**
@@ -32,8 +30,6 @@ class Meta_Box {
             wp_enqueue_style( 'wp-color-picker' );
             wp_enqueue_script( 'wp-color-picker' );
 
-
-
             $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
             wp_enqueue_style( 'hexagrid-admin-style', $plugin_root_url . 'assets/admin/css/admin.css', [], '1.0.0' );
             wp_enqueue_script( 'hexagrid-admin-script', $plugin_root_url . 'assets/admin/js/admin.js', [ 'jquery', 'wp-color-picker' ], '1.0.0', true );
@@ -44,8 +40,6 @@ class Meta_Box {
             ]);
         }
     }
-
-
 
     /**
      * Add meta box.
@@ -82,257 +76,146 @@ class Meta_Box {
         $orderby      = get_post_meta( $post->ID, '_hexagrid_orderby', true ) ?: 'date';
         $order        = get_post_meta( $post->ID, '_hexagrid_order', true ) ?: 'DESC';
 
-        $theme_color  = get_post_meta( $post->ID, '_hexagrid_theme_color', true ) ?: '#0984e3';
+        $theme_color  = get_post_meta( $post->ID, '_hexagrid_theme_color', true ) ?: '#3291b6';
         $content_type = get_post_meta( $post->ID, '_hexagrid_content_type', true ) ?: 'product';
 
-        
+        // Slider specific settings
+        $slider_nav      = get_post_meta( $post->ID, '_hexagrid_slider_nav', true ) !== 'no' ? 'yes' : 'no'; // Default yes
+        $slider_dots     = get_post_meta( $post->ID, '_hexagrid_slider_dots', true ) === 'yes' ? 'yes' : 'no'; // Default no
+        $slider_autoplay = get_post_meta( $post->ID, '_hexagrid_slider_autoplay', true ) === 'yes' ? 'yes' : 'no'; // Default no
+
+        $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
+        $assets_url      = $plugin_root_url . 'assets/admin/icons/';
 
         ?>
-        
         <div class="hexagrid-meta-box-wrapper">
-            <!-- Main Header -->
-            <!-- <div class="hexagrid-main-header">
-                <h2><?php esc_html_e( 'Customize your showcase', 'hexa-grid-product-showcase' ); ?></h2>
-                <p><?php esc_html_e( 'Configure your product showcase display', 'hexa-grid-product-showcase' ); ?></p>
-            </div> -->
             
             <div class="hexagrid-meta-box-content">
                 
                 <!-- Section 1: Layout Settings -->
                 <div class="hexagrid-section">
-                    <div class="hexagrid-section-header">
-                        <div class="hexagrid-section-icon">
-                            <span class="dashicons dashicons-grid-view"></span>
-                        </div>
-                        <div class="hexagrid-section-info">
-                            <h3><?php esc_html_e( 'Layout Settings', 'hexa-grid-product-showcase' ); ?></h3>
-                            <p><?php esc_html_e( 'Configure content display and layout options', 'hexa-grid-product-showcase' ); ?></p>
-                        </div>
-                        <span class="hexagrid-section-toggle dashicons dashicons-arrow-up-alt2"></span>
-                    </div>
+                    <?php Form_Builder::render_section_header( 'dashicons-grid-view', __( 'Layout Settings', 'hexa-grid-product-showcase' ), __( 'Configure content display and layout options', 'hexa-grid-product-showcase' ) ); ?>
                     
                     <div class="hexagrid-section-body">
                         <!-- Content Type Selector -->
-                        <div class="hexagrid-form-group hexagrid-content-type-wrapper">
-                            <label class="hexagrid-content-type-label"><?php esc_html_e( 'Content Type', 'hexa-grid-product-showcase' ); ?></label>
-                            <div class="hexagrid-content-type-selector">
-                                <?php
-                                $content_types = [
-                                    'product' => [
-                                        'label' => __( 'Products', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'product.svg',
-                                        'description' => __( 'Display WooCommerce products', 'hexa-grid-product-showcase' )
-                                    ],
-                                    'category' => [
-                                        'label' => __( 'Categories', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'category.svg',
-                                        'description' => __( 'Display product categories', 'hexa-grid-product-showcase' )
-                                    ]
-                                ];
-                                
-                                $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-                                
-                                foreach ( $content_types as $value => $data ) :
-                                    $checked = checked( $content_type, $value, false );
-                                    $icon_url = $plugin_root_url . 'assets/admin/icons/' . $data['icon'];
-                                ?>
-                                    <label class="hexagrid-content-type-option">
-                                        <input type="radio" name="hexagrid_content_type" value="<?php echo esc_attr( $value ); ?>" <?php echo $checked; ?>>
-                                        <div class="hexagrid-content-type-card">
-                                            <div class="hexagrid-content-type-icon">
-                                                <img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( $data['label'] ); ?>">
-                                            </div>
-                                            <div class="hexagrid-content-type-info">
-                                                <span class="hexagrid-content-type-title"><?php echo esc_html( $data['label'] ); ?></span>
-                                                <span class="hexagrid-content-type-desc"><?php echo esc_html( $data['description'] ); ?></span>
-                                            </div>
-                                            <span class="hexagrid-content-type-radio">
-                                                <span class="hexagrid-radio-dot"></span>
-                                            </span>
-                                        </div>
-                                    </label>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
+                        <?php 
+                        Form_Builder::render_card_selector([
+                            'id'         => 'hexagrid_content_type',
+                            'label'      => __( 'Content Type', 'hexa-grid-product-showcase' ),
+                            'value'      => $content_type,
+                            'type'       => 'content_type',
+                            'assets_url' => $assets_url,
+                            'options'    => [
+                                'product' => [
+                                    'label' => __( 'Products', 'hexa-grid-product-showcase' ),
+                                    'icon' => 'product.svg',
+                                    'desc' => __( 'Display WooCommerce products', 'hexa-grid-product-showcase' )
+                                ],
+                                'category' => [
+                                    'label' => __( 'Categories', 'hexa-grid-product-showcase' ),
+                                    'icon' => 'category.svg',
+                                    'desc' => __( 'Display product categories', 'hexa-grid-product-showcase' )
+                                ]
+                            ]
+                        ]);
                         
-                        <div class="hexagrid-form-group">
-                            <label><?php esc_html_e( 'Layout Type', 'hexa-grid-product-showcase' ); ?></label>
-                            <div class="hexagrid-layout-type-grid">
-                                <?php
-                                $layout_types = [
-                                    'grid' => [
-                                        'label' => __( 'Grid', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'grid.svg'
-                                    ],
-                                    'list' => [
-                                        'label' => __( 'List', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'list.svg'
-                                    ],
-                                    'slider' => [
-                                        'label' => __( 'Carousel', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'slider.svg'
-                                    ],
-                                    'table' => [
-                                        'label' => __( 'Table', 'hexa-grid-product-showcase' ),
-                                        'icon' => 'table.svg'
-                                    ]
-                                ];
-                                
-                                foreach ( $layout_types as $value => $data ) :
-                                    $checked = checked( $layout, $value, false );
-                                    $icon_url = $plugin_root_url . 'assets/admin/icons/' . $data['icon'];
-                                ?>
-                                    <label class="hexagrid-layout-option">
-                                        <input type="radio" name="hexagrid_layout_type" value="<?php echo esc_attr( $value ); ?>" <?php echo $checked; ?>>
-                                        <div class="hexagrid-layout-card">
-                                            <div class="hexagrid-layout-icon">
-                                                <img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( $data['label'] ); ?>">
-                                            </div>
-                                            <span class="hexagrid-layout-label"><?php echo esc_html( $data['label'] ); ?></span>
-                                            <span class="hexagrid-layout-checkmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                                    <circle cx="12" cy="12" r="10"/>
-                                                    <path fill="white" d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    </label>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                        <div class="hexagrid-form-group">
-                            <label><?php esc_html_e( 'Layout Style', 'hexa-grid-product-showcase' ); ?></label>
-                            
-                            <?php
-                            // Define variations for each layout type
-                            $all_variations = [
-                                'grid' => [
-                                    'grid-1' => [
-                                        'label'    => __( 'Grid Modern', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'skeleton-1.svg'
-                                    ],
-                                    'grid-2' => [
-                                        'label'    => __( 'Grid Classic', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'skeleton-2.svg'
-                                    ],
-                                ],
-                                'list' => [
-                                    'list-1' => [
-                                        'label'    => __( 'List Minimal', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'list.svg' 
-                                    ],
-                                    'list-2' => [
-                                        'label'    => __( 'List Detailed', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'list.svg' 
-                                    ],
-                                ],
-                                'slider' => [
-                                    'slider-1' => [
-                                        'label'    => __( 'Carousel Standard', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'slider.svg' 
-                                    ],
-                                    'slider-2' => [
-                                        'label'    => __( 'Carousel Coverflow', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'slider.svg' 
-                                    ],
-                                ],
-                                'table' => [
-                                    'table-1' => [
-                                        'label'    => __( 'Table Simple', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'table.svg' 
-                                    ],
-                                    'table-2' => [
-                                        'label'    => __( 'Table Advanced', 'hexa-grid-product-showcase' ),
-                                        'skeleton' => 'table.svg' 
-                                    ],
-                                ],
-                            ];
-                            ?>
-
-                            <!-- Loop through each Layout Type to create its variation group -->
-                            <?php foreach ( $all_variations as $parent_layout => $variations ) : ?>
-                                <div class="hexagrid-layout-variation-group" data-parent-layout="<?php echo esc_attr( $parent_layout ); ?>" style="display: none;">
-                                    <div class="hexagrid-layout-variation-grid">
-                                        <?php
-                                        foreach ( $variations as $value => $data ) :
-                                            $checked = checked( $style, $value, false );
-                                            $skeleton_url = $plugin_root_url . 'assets/admin/icons/' . $data['skeleton'];
-                                        ?>
-                                            <label class="hexagrid-variation-option">
-                                                <input type="radio" name="hexagrid_layout_style" value="<?php echo esc_attr( $value ); ?>" <?php echo $checked; ?>>
-                                                <div class="hexagrid-variation-card">
-                                                    <div class="hexagrid-variation-preview">
-                                                        <img src="<?php echo esc_url( $skeleton_url ); ?>" alt="<?php echo esc_attr( $data['label'] ); ?>">
-                                                    </div>
-                                                    <span class="hexagrid-variation-label"><?php echo esc_html( $data['label'] ); ?></span>
-                                                    <span class="hexagrid-variation-checkmark">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                                            <circle cx="12" cy="12" r="10"/>
-                                                            <path fill="white" d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </label>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                            
-                            <div class="hexagrid-no-variations" style="display:none; color: #666; font-style: italic; padding: 10px;">
-                                <?php esc_html_e( 'No variations available for this layout.', 'hexa-grid-product-showcase' ); ?>
-                            </div>
-
-                        </div>
+                        // Layout Type Selector
+                        Form_Builder::render_card_selector([
+                            'id'         => 'hexagrid_layout_type',
+                            'label'      => __( 'Layout Type', 'hexa-grid-product-showcase' ),
+                            'value'      => $layout,
+                            'type'       => 'layout',
+                            'assets_url' => $assets_url,
+                            'options'    => [
+                                'grid'   => [ 'label' => __( 'Grid', 'hexa-grid-product-showcase' ), 'icon' => 'grid.svg' ],
+                                'list'   => [ 'label' => __( 'List', 'hexa-grid-product-showcase' ), 'icon' => 'list.svg' ],
+                                'slider' => [ 'label' => __( 'Carousel', 'hexa-grid-product-showcase' ), 'icon' => 'slider.svg' ],
+                                'table'  => [ 'label' => __( 'Table', 'hexa-grid-product-showcase' ), 'icon' => 'table.svg' ]
+                            ]
+                        ]);
                         
+                        // Layout Variations
+                        // Note: Variation logic is complex (grouped by parent), so we iterate here but use FormBuilder to render
+                         $all_variations = [
+                            'grid' => [
+                                'grid-1' => [ 'label' => __( 'Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
+                                'grid-2' => [ 'label' => __( 'Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
+                            ],
+                            'list' => [
+                                'list-1' => [ 'label' => __( 'List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                                'list-2' => [ 'label' => __( 'List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                            ],
+                            'slider' => [
+                                'slider-1' => [ 'label' => __( 'Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                                'slider-2' => [ 'label' => __( 'Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                            ],
+                            'table' => [
+                                'table-1' => [ 'label' => __( 'Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                                'table-2' => [ 'label' => __( 'Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                            ],
+                        ];
+                        
+                        echo '<div class="hexagrid-form-group"><label>' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
+                        
+                        foreach ( $all_variations as $parent_layout => $variations ) {
+                             // data-parent-layout is used by JS to show/hide this entire group
+                             echo '<div class="hexagrid-layout-variation-group" data-parent-layout="' . esc_attr($parent_layout) . '" style="display:none;">';
+                             
+                             Form_Builder::render_card_selector([
+                                'id'            => 'hexagrid_layout_style',
+                                'label'         => '', // No label needed inside group
+                                'value'         => $style,
+                                'type'          => 'variation',
+                                'assets_url'    => $assets_url,
+                                'wrapper_class' => 'hexagrid-no-margin', // Helper class to remove margin
+                                'options'       => $variations
+                             ]);
+                             
+                             echo '</div>';
+                        }
+                        echo '<div class="hexagrid-no-variations" style="display:none; color: #666; font-style: italic; padding: 10px;">' . esc_html__( 'No variations available for this layout.', 'hexa-grid-product-showcase' ) . '</div>';
+                        echo '</div>';
+                        ?>
+
                         <div class="hexagrid-row">
-                            <p class="hexagrid-form-group hexagrid-col-6" id="hexagrid-columns-wrapper">
-                                <label for="hexagrid_columns"><?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></label>
-                                <select name="hexagrid_columns" id="hexagrid_columns" class="widefat">
-                                    <option value="1" <?php selected( $columns, 1 ); ?>>1 <?php esc_html_e( 'Column', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="2" <?php selected( $columns, 2 ); ?>>2 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="3" <?php selected( $columns, 3 ); ?>>3 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="4" <?php selected( $columns, 4 ); ?>>4 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
-                                </select>
-                            </p>
+                            <div class="hexagrid-col-6" id="hexagrid-columns-wrapper">
+                                <?php 
+                                Form_Builder::render_select_field([
+                                    'id'      => 'hexagrid_columns',
+                                    'label'   => __( 'Columns', 'hexa-grid-product-showcase' ),
+                                    'value'   => $columns,
+                                    'class'   => 'widefat',
+                                    'options' => [
+                                        '1' => '1 ' . __( 'Column', 'hexa-grid-product-showcase' ),
+                                        '2' => '2 ' . __( 'Columns', 'hexa-grid-product-showcase' ),
+                                        '3' => '3 ' . __( 'Columns', 'hexa-grid-product-showcase' ),
+                                        '4' => '4 ' . __( 'Columns', 'hexa-grid-product-showcase' ),
+                                    ],
+                                    // Dependency: Show if Grid or Slider
+                                    'dependency' => [
+                                        'id' => 'hexagrid_layout_type',
+                                        'value' => ['grid', 'slider']
+                                    ]
+                                ]); 
+                                ?>
+                            </div>
                         </div>
 
                         <!-- Slider Specific Settings -->
-                        <?php
-                            $slider_nav      = get_post_meta( $post->ID, '_hexagrid_slider_nav', true ) !== 'no' ? 'yes' : 'no'; // Default yes
-                            $slider_dots     = get_post_meta( $post->ID, '_hexagrid_slider_dots', true ) === 'yes' ? 'yes' : 'no'; // Default no
-                            $slider_autoplay = get_post_meta( $post->ID, '_hexagrid_slider_autoplay', true ) === 'yes' ? 'yes' : 'no'; // Default no
-                        ?>
-                        <div id="hexagrid-slider-settings-wrapper" style="display:none; margin-top: 20px; border-top: 1px solid var(--hexagrid-border); padding-top: 20px;">
+                        <!-- Using a wrapper for the group, controlled by dependency logic -->
+                         <div id="hexagrid-slider-settings-wrapper" style="display:none; margin-top: 20px; border-top: 1px solid var(--hexagrid-border); padding-top: 20px;"
+                              data-dependency='{"id":"hexagrid_layout_type","value":"slider"}'>
                             <h4 style="margin-top:0; margin-bottom:15px; color: var(--hexagrid-text); font-weight: 600;"><?php esc_html_e( 'Slider Configuration', 'hexa-grid-product-showcase' ); ?></h4>
                             
                             <div class="hexagrid-row">
                                 <div class="hexagrid-col-4">
-                                    <div class="hexagrid-switch-container">
-                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Navigation', 'hexa-grid-product-showcase' ); ?></span>
-                                        <label class="hexagrid-switch">
-                                            <input type="checkbox" name="hexagrid_slider_nav" value="yes" <?php checked( $slider_nav, 'yes' ); ?>>
-                                            <span class="hexagrid-slider-round"></span>
-                                        </label>
-                                    </div>
+                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_nav', 'label' => __( 'Navigation', 'hexa-grid-product-showcase' ), 'value' => $slider_nav ]); ?>
                                 </div>
                                 <div class="hexagrid-col-4">
-                                    <div class="hexagrid-switch-container">
-                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Pagination Dots', 'hexa-grid-product-showcase' ); ?></span>
-                                        <label class="hexagrid-switch">
-                                            <input type="checkbox" name="hexagrid_slider_dots" value="yes" <?php checked( $slider_dots, 'yes' ); ?>>
-                                            <span class="hexagrid-slider-round"></span>
-                                        </label>
-                                    </div>
+                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_dots', 'label' => __( 'Pagination Dots', 'hexa-grid-product-showcase' ), 'value' => $slider_dots ]); ?>
                                 </div>
                                 <div class="hexagrid-col-4">
-                                    <div class="hexagrid-switch-container">
-                                        <span class="hexagrid-switch-label"><?php esc_html_e( 'Auto Play', 'hexa-grid-product-showcase' ); ?></span>
-                                        <label class="hexagrid-switch">
-                                            <input type="checkbox" name="hexagrid_slider_autoplay" value="yes" <?php checked( $slider_autoplay, 'yes' ); ?>>
-                                            <span class="hexagrid-slider-round"></span>
-                                        </label>
-                                    </div>
+                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_autoplay', 'label' => __( 'Auto Play', 'hexa-grid-product-showcase' ), 'value' => $slider_autoplay ]); ?>
                                 </div>
                             </div>
                         </div>
@@ -342,71 +225,75 @@ class Meta_Box {
 
                 <!-- Section 2: Query Settings -->
                 <div class="hexagrid-section">
-                     <div class="hexagrid-section-header">
-                        <div class="hexagrid-section-icon">
-                            <span class="dashicons dashicons-filter"></span>
-                        </div>
-                        <div class="hexagrid-section-info">
-                            <h3><?php esc_html_e( 'Query Settings', 'hexa-grid-product-showcase' ); ?></h3>
-                            <p><?php esc_html_e( 'Filter and sort your products', 'hexa-grid-product-showcase' ); ?></p>
-                        </div>
-                        <span class="hexagrid-section-toggle dashicons dashicons-arrow-up-alt2"></span>
-                    </div>
+                    <?php Form_Builder::render_section_header( 'dashicons-filter', __( 'Query Settings', 'hexa-grid-product-showcase' ), __( 'Filter and sort your products', 'hexa-grid-product-showcase' ) ); ?>
 
                     <div class="hexagrid-section-body">
-                        <p class="hexagrid-form-group">
-                            <label for="hexagrid_query_limit"><?php esc_html_e( 'Product Limit', 'hexa-grid-product-showcase' ); ?></label>
-                            <input type="number" name="hexagrid_query_limit" id="hexagrid_query_limit" value="<?php echo esc_attr( $limit ); ?>" class="widefat" min="1">
-                        </p>
-
-                        <p class="hexagrid-form-group">
-                            <label for="hexagrid_exclude_ids"><?php esc_html_e( 'Exclude Products (IDs)', 'hexa-grid-product-showcase' ); ?></label>
-                            <input type="text" name="hexagrid_exclude_ids" id="hexagrid_exclude_ids" value="<?php echo esc_attr( $exclude_ids ); ?>" class="widefat" placeholder="e.g. 101, 105, 200">
-                             <span class="description" style="display:block; margin-top:5px; color:#666;"><?php esc_html_e( 'Enter product IDs to exclude', 'hexa-grid-product-showcase' ); ?></span>
-                        </p>
+                        <?php 
+                        Form_Builder::render_text_field([
+                            'id'         => 'hexagrid_query_limit',
+                            'label'      => __( 'Product Limit', 'hexa-grid-product-showcase' ),
+                            'value'      => $limit,
+                            'type'       => 'number',
+                            'input_attr' => 'min="1"'
+                        ]);
+                        
+                        Form_Builder::render_text_field([
+                            'id'          => 'hexagrid_exclude_ids',
+                            'label'       => __( 'Exclude Products (IDs)', 'hexa-grid-product-showcase' ),
+                            'value'       => $exclude_ids,
+                            'placeholder' => 'e.g. 101, 105, 200',
+                            'desc'        => __( 'Enter product IDs to exclude', 'hexa-grid-product-showcase' )
+                        ]);
+                        ?>
 
                         <div class="hexagrid-row">
-                            <p class="hexagrid-form-group hexagrid-col-6">
-                                <label for="hexagrid_orderby"><?php esc_html_e( 'Order By', 'hexa-grid-product-showcase' ); ?></label>
-                                <select name="hexagrid_orderby" id="hexagrid_orderby" class="widefat">
-                                    <option value="date" <?php selected( $orderby, 'date' ); ?>><?php esc_html_e( 'Date', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="price" <?php selected( $orderby, 'price' ); ?>><?php esc_html_e( 'Price', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="ID" <?php selected( $orderby, 'ID' ); ?>><?php esc_html_e( 'ID', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="title" <?php selected( $orderby, 'title' ); ?>><?php esc_html_e( 'Title', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="popularity" <?php selected( $orderby, 'popularity' ); ?>><?php esc_html_e( 'Popularity (Sales)', 'hexa-grid-product-showcase' ); ?></option>
-                                </select>
-                            </p>
+                            <div class="hexagrid-col-6">
+                                <?php 
+                                Form_Builder::render_select_field([
+                                    'id'      => 'hexagrid_orderby',
+                                    'label'   => __( 'Order By', 'hexa-grid-product-showcase' ),
+                                    'value'   => $orderby,
+                                    'options' => [
+                                        'date' => __( 'Date', 'hexa-grid-product-showcase' ),
+                                        'price' => __( 'Price', 'hexa-grid-product-showcase' ),
+                                        'ID' => __( 'ID', 'hexa-grid-product-showcase' ),
+                                        'title' => __( 'Title', 'hexa-grid-product-showcase' ),
+                                        'popularity' => __( 'Popularity (Sales)', 'hexa-grid-product-showcase' ),
+                                    ]
+                                ]); 
+                                ?>
+                            </div>
 
-                            <p class="hexagrid-form-group hexagrid-col-6">
-                                <label for="hexagrid_order"><?php esc_html_e( 'Order', 'hexa-grid-product-showcase' ); ?></label>
-                                <select name="hexagrid_order" id="hexagrid_order" class="widefat">
-                                    <option value="DESC" <?php selected( $order, 'DESC' ); ?>><?php esc_html_e( 'Descending (Z-A, Newest)', 'hexa-grid-product-showcase' ); ?></option>
-                                    <option value="ASC" <?php selected( $order, 'ASC' ); ?>><?php esc_html_e( 'Ascending (A-Z, Oldest)', 'hexa-grid-product-showcase' ); ?></option>
-                                </select>
-                            </p>
+                            <div class="hexagrid-col-6">
+                                <?php 
+                                Form_Builder::render_select_field([
+                                    'id'      => 'hexagrid_order',
+                                    'label'   => __( 'Order', 'hexa-grid-product-showcase' ),
+                                    'value'   => $order,
+                                    'options' => [
+                                        'DESC' => __( 'Descending (Z-A, Newest)', 'hexa-grid-product-showcase' ),
+                                        'ASC' => __( 'Ascending (A-Z, Oldest)', 'hexa-grid-product-showcase' ),
+                                    ]
+                                ]); 
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Section 3: Style Settings -->
                 <div class="hexagrid-section">
-                    <div class="hexagrid-section-header">
-                        <div class="hexagrid-section-icon">
-                            <span class="dashicons dashicons-art"></span>
-                        </div>
-                        <div class="hexagrid-section-info">
-                            <h3><?php esc_html_e( 'Style Settings', 'hexa-grid-product-showcase' ); ?></h3>
-                            <p><?php esc_html_e( 'Customize appearance and colors', 'hexa-grid-product-showcase' ); ?></p>
-                        </div>
-                        <span class="hexagrid-section-toggle dashicons dashicons-arrow-up-alt2"></span>
-                    </div>
+                    <?php Form_Builder::render_section_header( 'dashicons-art', __( 'Style Settings', 'hexa-grid-product-showcase' ), __( 'Customize appearance and colors', 'hexa-grid-product-showcase' ) ); ?>
 
                     <div class="hexagrid-section-body">
-                        <p class="hexagrid-form-group">
-                            <label for="hexagrid_theme_color"><?php esc_html_e( 'Theme Color', 'hexa-grid-product-showcase' ); ?></label>
-                            <input type="text" name="hexagrid_theme_color" id="hexagrid_theme_color" value="<?php echo esc_attr( $theme_color ); ?>" class="hexagrid-color-picker">
-                             <span class="description" style="display:block; margin-top:5px; color:#666;"><?php esc_html_e( 'Select your primary brand color', 'hexa-grid-product-showcase' ); ?></span>
-                        </p>
+                        <?php 
+                        Form_Builder::render_color_picker([
+                            'id'    => 'hexagrid_theme_color',
+                            'label' => __( 'Theme Color', 'hexa-grid-product-showcase' ),
+                            'value' => $theme_color,
+                            'desc'  => __( 'Select your primary brand color', 'hexa-grid-product-showcase' )
+                        ]); 
+                        ?>
                     </div>
                 </div>
 
@@ -428,7 +315,7 @@ class Meta_Box {
         </div>
         <?php
     }
-
+    
     /**
      * Get settings map for the showcase.
      * Centralized definition of all fields, types, and sanitization.
