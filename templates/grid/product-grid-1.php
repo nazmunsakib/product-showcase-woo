@@ -6,64 +6,50 @@
  * @var int $columns
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 ?>
-<div class="hexagrid-layout-grid hexagrid-columns-<?php echo esc_attr( $columns ); ?>">
-    <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-        <?php 
-            global $product;
-            if ( ! is_object( $product ) ) {
+<div class="hexagrid-layout-grid hexagrid-columns-<?php echo esc_attr( $columns ); ?>" role="list">
+    <?php if ( $query->have_posts() ) : update_post_thumbnail_cache( $query ); ?>
+        <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+
+            <?php 
                 $product = wc_get_product( get_the_ID() );
-            }
-        ?>
-        <article <?php post_class( 'hexagrid-product' ); ?>>
-            <div class="hexagrid-product-wrapper">
-                <div class="hexagrid-product-image-area">
-                    <a href="<?php the_permalink(); ?>">
-                        <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
-                    </a>
-                    <?php if ( $product->is_on_sale() ) : ?>
-                        <span class="hexagrid-badge hexagrid-sale-badge"><?php esc_html_e( 'Sale!', 'hexa-grid-product-showcase' ); ?></span>
-                    <?php endif; ?>
-                </div>
-            
-                <div class="hexagrid-product-content-area">
-                    <h3 class="hexagrid-product-title">
-                        <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a>
-                    </h3>
-                    
-                    <div class="hexagrid-product-rating">
+                if ( ! $product ) {
+                    continue; 
+                }
+            ?>
+
+            <article <?php post_class( 'hexagrid-product' ); ?> role="listitem">
+                <div class="hexagrid-product-wrapper">
+
+                    <div class="hexagrid-product-image-area">
                         <?php 
-                        if ( $average = $product->get_average_rating() ) :
-                            echo wp_kses_post( wc_get_rating_html( $average ) );
-                        endif;
+                            echo HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
+                            echo wp_kses_post( HexaGrid\Helper::get_product_badge( $product ) ); 
                         ?>
                     </div>
 
-                    <div class="hexagrid-product-footer">
-                        <div class="hexagrid-product-price">
-                            <?php echo wp_kses_post( $product->get_price_html() ); ?>
-                        </div>
-                        
-                        <div class="hexagrid-product-cart-btn">
+                    <div class="hexagrid-product-content-area">
+                        <?php 
+                            echo wp_kses_post( HexaGrid\Helper::get_product_title( $product, 10, 'words' ) );
+                            echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product ) ); 
+                        ?>
+
+                        <div class="hexagrid-product-footer">
                             <?php 
-                            // Custom Add to Cart Button (Simple Icon style)
-                            $args = array(); 
-                            echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s aria-label="%s" rel="nofollow"><span class="dashicons dashicons-cart"></span></a>',
-                                    esc_url( $product->add_to_cart_url() ),
-                                    esc_attr( 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
-                                    sprintf( 'data-product_id="%s" data-product_sku="%s" aria-label="%s"', 
-                                        esc_attr( $product->get_id() ), 
-                                        esc_attr( $product->get_sku() ),
-                                        esc_attr( $product->add_to_cart_description() )
-                                    ),
-                                    esc_html( $product->add_to_cart_description() ) 
-                                );
+                                echo wp_kses_post( HexaGrid\Helper::get_product_price( $product ) ); 
+                                echo wp_kses_post( HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ) ); 
                             ?>
-                        </div>
+                        </div>  
                     </div>
+
                 </div>
-            </div>
-        </article>
-    <?php endwhile; wp_reset_postdata(); ?>
+            </article>
+
+        <?php endwhile; wp_reset_postdata(); ?>
+    <?php else : ?>
+        <p class="hexagrid-no-products"><?php esc_html_e( 'No products found.', 'hexa-grid-product-showcase' ); ?></p>
+    <?php endif; ?>
 </div>
