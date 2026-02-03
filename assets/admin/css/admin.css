@@ -27,39 +27,6 @@
 }
 
 
-/* --- Layout Variations Wrapper --- */
-.hexagrid-settings-layout-variation-group {
-    margin-top: 15px;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hexagrid-settings-layout-variation-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.hexagrid-settings-no-variations {
-    background: #fff4f4;
-    border-left: 4px solid #d63638;
-    color: #d63638;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 15px;
-}
-
 /* --- Shortcode Display --- */
 .hexagrid-settings-shortcode-container {
     display: flex;

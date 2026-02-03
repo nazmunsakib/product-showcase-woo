@@ -160,7 +160,7 @@ class Meta_Box {
                             ]
                         ]);
                         
-                        // Layout Variations
+                        // Layout Variations - Using Grouped Card Selector
                         $all_variations = [
                             'grid' => [
                                 'grid-1' => [ 'label' => __( 'Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
@@ -180,27 +180,18 @@ class Meta_Box {
                             ],
                         ];
                         
-                        echo '<div class="hexagrid-settings-row"><div class="hexagrid-settings-col-12"><label style="margin-bottom:15px; display:block;">' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
-                        
-                        foreach ( $all_variations as $parent_layout => $variations ) {
-                             // data-parent-layout is used by admin.js to show/hide this entire group
-                             echo '<div class="hexagrid-settings-layout-variation-group" data-parent-layout="' . esc_attr($parent_layout) . '" style="display:none;">';
-                             
-                             $builder->render_card_selector([
-                                'id'            => 'layout_style',
-                                'label'         => '', // No label needed inside group
-                                'value'         => $style,
-                                'type'          => 'radio',
-                                'layout'        => 'grid',
-                                'grid_columns'  => 4,
-                                'assets_url'    => $assets_url,
-                                'options'       => $variations
-                             ]);
-                             
-                             echo '</div>';
-                        }
-                        echo '<div class="hexagrid-settings-no-variations" style="display:none;">' . esc_html__( 'No variations available for this layout.', 'hexa-grid-product-showcase' ) . '</div>';
-                        echo '</div></div>'; // Close col-12 and row
+                        $builder->render_grouped_card_selector([
+                            'id'            => 'layout_style',
+                            'label'         => __( 'Layout Style', 'hexa-grid-product-showcase' ),
+                            'value'         => $style,
+                            'parent_field'  => 'layout_type',
+                            'groups'        => $all_variations,
+                            'type'          => 'radio',
+                            'layout'        => 'grid',
+                            'grid_columns'  => 4,
+                            'assets_url'    => $assets_url,
+                            'no_match_text' => __( 'No variations available for this layout.', 'hexa-grid-product-showcase' )
+                        ]);
                         ?>
 
                         <div class="hexagrid-settings-row">

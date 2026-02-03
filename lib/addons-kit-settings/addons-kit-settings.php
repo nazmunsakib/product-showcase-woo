@@ -311,6 +311,66 @@ class Addons_Kit_Settings_Builder {
     }
 
     /**
+     * Render Grouped Card Selector with Parent-Child Dependencies.
+     * Useful for showing different variations based on a parent field value.
+     *
+     * @param array $args Field configurations.
+     */
+    public function render_grouped_card_selector( $args ) {
+        $defaults = [
+            'id'             => '',
+            'label'          => '',
+            'value'          => '',
+            'parent_field'   => '', // ID of the parent field that controls which group to show
+            'groups'         => [], // Array of ['parent_value' => ['option_value' => ['label', 'icon/skeleton']]]
+            'type'           => 'radio',
+            'layout'         => 'grid',
+            'grid_columns'   => '',
+            'grid_min_width' => '150px',
+            'assets_url'     => '',
+            'wrapper_class'  => '',
+            'no_match_text'  => 'No options available.',
+        ];
+        $args = wp_parse_args( $args, $defaults );
+
+        $parent_field_id = $this->get_id( $args['parent_field'] );
+        
+        ?>
+        <div class="aksbuilder-form-group <?php echo esc_attr( $args['wrapper_class'] ); ?>">
+            <?php if ( ! empty( $args['label'] ) ) : ?>
+                <label style="margin-bottom:15px; display:block;"><?php echo esc_html( $args['label'] ); ?></label>
+            <?php endif; ?>
+
+            <?php foreach ( $args['groups'] as $parent_value => $options ) : ?>
+                <div class="aksbuilder-grouped-variation" 
+                     data-parent-field="<?php echo esc_attr( $parent_field_id ); ?>" 
+                     data-parent-value="<?php echo esc_attr( $parent_value ); ?>" 
+                     style="display:none;">
+                    <?php
+                    // Render card selector for this group
+                    $this->render_card_selector([
+                        'id'            => $args['id'],
+                        'label'         => '',
+                        'value'         => $args['value'],
+                        'type'          => $args['type'],
+                        'layout'        => $args['layout'],
+                        'grid_columns'  => $args['grid_columns'],
+                        'grid_min_width' => $args['grid_min_width'],
+                        'assets_url'    => $args['assets_url'],
+                        'options'       => $options
+                    ]);
+                    ?>
+                </div>
+            <?php endforeach; ?>
+
+            <div class="aksbuilder-no-match" style="display:none; background: #fff4f4; border-left: 4px solid #d63638; color: #d63638; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                <?php echo esc_html( $args['no_match_text'] ); ?>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
      * Generate dependency data attribute.
      * Expects dependency array: ['id' => 'field_name', 'value' => 'expected_val']
      * 
