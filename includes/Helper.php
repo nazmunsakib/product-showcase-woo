@@ -120,23 +120,64 @@ class Helper {
             }
         }
 
-        return esc_html( $excerpt );
+        $excerpt = '<div class="hexagrid-product-short-desc">' .
+            '<p>' . wp_kses_post( $excerpt ) . '</p>' .
+            '</div>';
+
+        return $excerpt;
     }
 
     /**
-     * Product Rating HTML
+     * Get Product Rating HTML
+     *
+     * @param \WC_Product $product
+     * @param array $args Optional parameters:
+     *                    - 'show_average' (bool) Display average number (default: true)
+     *                    - 'show_count' (bool) Display review count (default: true)
+     *
+     * @return string HTML output
      */
-    public static function get_product_rating( $product ) {
+    public static function get_product_rating( $product, $args = array() ) {
         if ( ! $product instanceof \WC_Product ) {
             return '';
         }
 
-        $rating = $product->get_average_rating();
+        $defaults = array(
+            'show_average' => true,
+            'show_count'   => true,
+        );
 
-        $rating = '<div class="hexagrid-product-rating">' . ( $rating > 0 ? wp_kses_post( wc_get_rating_html( $rating ) ) : '' ) . '</div>';
+        $args = wp_parse_args( $args, $defaults );
 
-        return $rating;
+        $average = (float) $product->get_average_rating();
+        $review_count = (int) $product->get_review_count();
+
+        if ( $average <= 0 && ! $args['show_count'] ) {
+            return ''; // Nothing to show
+        }
+
+        $html  = '<div class="hexagrid-product-rating">';
+
+        if ( $average > 0 ) {
+            $html .= wp_kses_post( wc_get_rating_html( $average ) );
+
+            if ( $args['show_average'] ) {
+                $html .= '<span class="hexagrid-rating-average">' . esc_html( number_format( $average, 1 ) ) . '</span>';
+            }
+
+            if ( $args['show_count'] && $review_count > 0 ) {
+                $html .= '<span class="hexagrid-rating-separator">&bull;</span>';
+                $html .= '<span class="hexagrid-review-count">' . esc_html( sprintf( _n( '%d review', '%d reviews', $review_count, 'hexa-grid-product-showcase' ), $review_count ) ) . '</span>';
+            }
+        } elseif ( $args['show_count'] && $review_count > 0 ) {
+            $html .= '<span class="hexagrid-review-count">' . esc_html( sprintf( _n( '%d review', '%d reviews', $review_count, 'hexa-grid-product-showcase' ), $review_count ) ) . '</span>';
+        }
+
+        $html .= '</div>';
+
+        return $html;
     }
+
 
     /**
      * Add to Cart Button (WooCommerce Compatible)
@@ -217,7 +258,6 @@ class Helper {
     }
 
 
-
     /**
      * Product Categories
      */
@@ -226,20 +266,10 @@ class Helper {
             return '';
         }
 
-        $categories = $product->get_category_ids();
-        if ( empty( $categories ) ) return '';
-
-        $html = '<div class="hg-product-categories">';
-
-        foreach ( $categories as $cat_id ) {
-            $term = get_term( $cat_id );
-            if ( $term && ! is_wp_error( $term ) ) {
-                $html .= '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a> ';
-            }
+        $categories = wc_get_product_category_list( $product->get_id(), ', ' );
+            if ( $categories ) {
+            return '<div class="hexagrid-product-category">' . wp_kses_post( $categories ) . '</div>';
         }
-
-        $html .= '</div>';
-        return $html;
     }
 
     /**

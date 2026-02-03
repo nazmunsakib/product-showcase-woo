@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <div class="hexagrid-product-content-area">
                         <?php 
                             echo wp_kses_post( HexaGrid\Helper::get_product_title( $product, 10, 'words' ) );
-                            echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product ) ); 
+                            echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product, array( 'show_count' => false, 'show_average' => false ) ) ); 
                         ?>
 
                         <div class="hexagrid-product-footer">

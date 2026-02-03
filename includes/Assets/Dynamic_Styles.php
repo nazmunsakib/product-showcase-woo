@@ -33,9 +33,9 @@ class Dynamic_Styles {
         
         // Backgrounds (Badges, Buttons)
         $css .= "{$scope}.hexagrid-sale-badge { background-color: " . esc_attr( $theme_color ) . " !important; }";
-        $css .= " {$scope}.hexagrid-add-btn a { background-color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= " {$scope}.hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; }";
         $css .= " {$scope}.hexagrid-product-price ins .amount { color: " . esc_attr( $theme_color ) . " !important; }";
-        $css .= " {$scope}.hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; border-color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= " {$scope}.hexagrid-product-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; border-color: " . esc_attr( $theme_color ) . " !important; }";
         
         // Text Hover (Links) - NOW USING THEME COLOR
         $css .= "{$scope}.hexagrid-product-title a:hover, {$scope}.hexagrid-product-category a:hover { color: " . esc_attr( $theme_color ) . " !important; }";
