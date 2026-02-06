@@ -14,6 +14,9 @@
             <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
                 <?php 
+                    if ( ! function_exists( 'wc_get_product' ) ) {
+                        continue;
+                    }
                     $product = wc_get_product( get_the_ID() );
                     if ( ! $product ) {
                         continue; 
@@ -26,21 +29,21 @@
 
                             <div class="hexagrid-product-image-area">
                                 <?php 
-                                    echo HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
-                                    echo wp_kses_post( HexaGrid\Helper::get_product_badge( $product ) ); 
+                                    echo \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
+                                    echo wp_kses_post( \HexaGrid\Helper::get_product_badge( $product ) ); 
                                 ?>
                             </div>
 
                             <div class="hexagrid-product-content-area">
                                 <?php 
-                                    echo wp_kses_post( HexaGrid\Helper::get_product_title( $product, 10, 'words' ) );
-                                    echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product, array( 'show_count' => false, 'show_average' => false ) ) ); 
+                                    echo wp_kses_post( \HexaGrid\Helper::get_product_title( $product, 10, 'words' ) );
+                                    echo wp_kses_post( \HexaGrid\Helper::get_product_rating( $product, array( 'show_count' => false, 'show_average' => false ) ) ); 
                                 ?>
 
                                 <div class="hexagrid-product-footer">
                                     <?php 
-                                        echo wp_kses_post( HexaGrid\Helper::get_product_price( $product ) ); 
-                                        echo wp_kses_post( HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ) ); 
+                                        echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); 
+                                        echo wp_kses_post( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ) ); 
                                     ?>
                                 </div>  
                             </div>

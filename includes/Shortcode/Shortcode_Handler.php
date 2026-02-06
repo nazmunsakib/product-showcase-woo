@@ -6,6 +6,7 @@ use HexaGrid\Query\Query_Builder;
 use HexaGrid\Layout\Grid_Layout;
 use HexaGrid\Layout\List_Layout;
 use HexaGrid\Layout\Slider_Layout;
+use HexaGrid\Layout\Table_Layout;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -119,7 +120,7 @@ class Shortcode_Handler {
                 $renderer = new Slider_Layout();
                 break;
             case 'table':
-                $renderer = new \HexaGrid\Layout\Table_Layout();
+                $renderer = new Table_Layout();
                 break;
             case 'grid':
             default:

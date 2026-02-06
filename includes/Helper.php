@@ -159,7 +159,11 @@ class Helper {
         $html  = '<div class="hexagrid-product-rating">';
 
         if ( $average > 0 ) {
-            $html .= wp_kses_post( wc_get_rating_html( $average ) );
+            if ( function_exists( 'wc_get_rating_html' ) ) {
+                $html .= wp_kses_post( wc_get_rating_html( $average ) );
+            } else {
+                $html .= '<div class="star-rating" role="img" aria-label="' . esc_attr( sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $average ) ) . '"><span style="width:' . ( ( $average / 5 ) * 100 ) . '%">' . sprintf( __( 'Rated %s out of 5', 'woocommerce' ), '<strong>' . esc_html( $average ) . '</strong>' ) . '</span></div>';
+            }
 
             if ( $args['show_average'] ) {
                 $html .= '<span class="hexagrid-rating-average">' . esc_html( number_format( $average, 1 ) ) . '</span>';
@@ -238,7 +242,7 @@ class Helper {
             esc_url( $product->add_to_cart_url() ),
             esc_attr( $args['quantity'] ),
             esc_attr( $args['class'] ),
-            wc_implode_html_attributes( array_map( 'esc_attr', $args['attributes'] ) ),
+            function_exists( 'wc_implode_html_attributes' ) ? \wc_implode_html_attributes( array_map( 'esc_attr', $args['attributes'] ) ) : '',
             $content
         );
 
@@ -275,7 +279,11 @@ class Helper {
             return '';
         }
 
-        $categories = wc_get_product_category_list( $product->get_id(), ', ' );
+        if ( function_exists( 'wc_get_product_category_list' ) ) {
+            $categories = wc_get_product_category_list( $product->get_id(), ', ' );
+        } else {
+            $categories = get_the_term_list( $product->get_id(), 'product_cat', '', ', ' );
+        }
             if ( $categories ) {
             return '<div class="hexagrid-product-category">' . wp_kses_post( $categories ) . '</div>';
         }
@@ -310,7 +318,25 @@ class Helper {
     }
 
     public static function get_product_stock_status( $product ) {
-        return ( $product instanceof \WC_Product ) ? esc_html( wc_get_stock_status_label( $product->get_stock_status() ) ) : '';
+        if ( ! $product instanceof \WC_Product ) {
+            return '';
+        }
+        
+        $status = $product->get_stock_status();
+        
+        if ( function_exists( 'wc_get_stock_status_label' ) ) {
+            return esc_html( wc_get_stock_status_label( $status ) );
+        }
+        
+        // Fallback for common stock statuses if function is missing
+        $statuses = array(
+            'instock'     => __( 'In stock', 'woocommerce' ),
+            'outofstock'  => __( 'Out of stock', 'woocommerce' ),
+            'onbackorder' => __( 'On backorder', 'woocommerce' ),
+        );
+        
+        $label = isset( $statuses[ $status ] ) ? $statuses[ $status ] : $status;
+        return esc_html( $label );
     }
 
     public static function get_product_stock_html( $product ) {

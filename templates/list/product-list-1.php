@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
             <?php 
+                if ( ! function_exists( 'wc_get_product' ) ) {
+                    continue;
+                }
                 $product = wc_get_product( get_the_ID() );
                 if ( ! $product ) {
                     continue; 
@@ -25,24 +28,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                     <div class="hexagrid-product-image-area">
                         <?php 
-                            echo HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
-                            echo wp_kses_post( HexaGrid\Helper::get_product_badge( $product ) ); 
+                            echo \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
+                            echo wp_kses_post( \HexaGrid\Helper::get_product_badge( $product ) ); 
                         ?>
                     </div>
 
                     <div class="hexagrid-product-content-area">
                         <div class="hexagrid-product-content-header">
                             <?php 
-                                echo wp_kses_post( HexaGrid\Helper::get_product_categories( $product ) ); 
-                                echo wp_kses_post( HexaGrid\Helper::get_product_title( $product, 0 ) ); 
+                                echo wp_kses_post( \HexaGrid\Helper::get_product_categories( $product ) ); 
+                                echo wp_kses_post( \HexaGrid\Helper::get_product_title( $product, 0 ) ); 
                             ?>
                         </div>
 
                         <?php 
-                            echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product ) ); 
-                            echo wp_kses_post( HexaGrid\Helper::get_product_price( $product ) ); 
-                            echo wp_kses_post( HexaGrid\Helper::get_product_excerpt( $product, 20, 'words' ) ); 
-                            echo wp_kses_post( HexaGrid\Helper::get_add_to_cart_button( $product, 'text' ) ); 
+                            echo wp_kses_post( \HexaGrid\Helper::get_product_rating( $product ) ); 
+                            echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); 
+                            echo wp_kses_post( \HexaGrid\Helper::get_product_excerpt( $product, 20, 'words' ) ); 
+                            echo wp_kses_post( \HexaGrid\Helper::get_add_to_cart_button( $product, 'text' ) ); 
                         ?>
 
                     </div>

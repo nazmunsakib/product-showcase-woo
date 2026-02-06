@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
         <?php 
             global $product;
             if ( ! is_object( $product ) ) {
-                $product = wc_get_product( get_the_ID() );
+                $product = \wc_get_product( get_the_ID() );
             }
         ?>
         <article <?php post_class( 'hexagrid-product' ); ?>>
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                     </h3>
                     
                     <div class="hexagrid-product-category">
-                        <?php echo wp_kses_post( wc_get_product_category_list( $product->get_id(), ', ' ) ); ?>
+                        <?php echo wp_kses_post( \wc_get_product_category_list( $product->get_id(), ', ' ) ); ?>
                     </div>
 
                     <div class="hexagrid-product-price">
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                     </div>
                     
                     <div class="hexagrid-add-btn">
-                         <?php woocommerce_template_loop_add_to_cart(); ?>
+                         <?php \woocommerce_template_loop_add_to_cart(); ?>
                     </div>
                 </div>
             </div>
