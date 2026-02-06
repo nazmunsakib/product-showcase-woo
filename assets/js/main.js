@@ -23,9 +23,13 @@
             const dots     = container.dataset.dots === 'yes';
             const autoplay = container.dataset.autoplay === 'yes';
 
+           
+
             const paginationEl = slider.querySelector('.swiper-pagination');
-            const nextEl = slider.querySelector('.swiper-button-next');
-            const prevEl = slider.querySelector('.swiper-button-prev');
+            const nextEl = container.querySelector('.swiper-button-next');
+            const prevEl = container.querySelector('.swiper-button-prev');
+
+             console.log(nextEl);
 
             const swiperConfig = {
                 slidesPerView: 1,

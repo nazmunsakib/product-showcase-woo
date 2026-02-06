@@ -580,6 +580,18 @@
     white-space: nowrap;
 }
 
+.hexagrid-product-slider-1 .swiper-button-next,
+.hexagrid-product-slider-1 .swiper-button-prev {
+    height: 25px;
+    width: 25px;
+    transition: all 0.3s ease;
+}
+
+.hexagrid-product-slider-1:hover .swiper-button-next,
+.hexagrid-product-slider-1:hover .swiper-button-prev {
+    border: 1px solid;
+}
+
 /* Responsive Table */
 @media screen and (max-width: 600px) {
     .hexagrid-product-table thead {
